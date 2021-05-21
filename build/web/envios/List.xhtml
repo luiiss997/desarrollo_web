@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/templeates/templeate_crud.xhtml">
+        <ui:define name="titulo_crud" >
+            <h2>Lista de envios</h2>
+        </ui:define>
+
+        <ui:define name="contenido_crud">
+            <h:form id="EnviosListForm">
+                <p:panel header="#{bundle.ListEnviosTitle}">
+                    <p:dataTable id="datalist" value="#{enviosController.items}" var="item"
+                                 selectionMode="single" selection="#{enviosController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEnviosTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEnviosTitle_seguroEnvio}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.seguroEnvio}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEnviosTitle_fechaEnvio}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaEnvio}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEnviosTitle_fechaEntrega}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaEntrega}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEnviosTitle_guiaSeguimiento}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.guiaSeguimiento}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEnviosTitle_status}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.status}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEnviosTitle_idVenta}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idVenta}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEnviosTitle_idDireccion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idDireccion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEnviosTitle_idPaqueteria}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idPaqueteria}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{enviosController.prepareCreate}" update=":EnviosCreateForm" oncomplete="PF('EnviosCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EnviosViewForm" oncomplete="PF('EnviosViewDialog').show()" disabled="#{empty enviosController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EnviosEditForm" oncomplete="PF('EnviosEditDialog').show()" disabled="#{empty enviosController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{enviosController.destroy}" update=":growl,datalist" disabled="#{empty enviosController.selected}"/>
+                            <h:link outcome="/envios/Eliminados" value="Show All Envios Deleted Items"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

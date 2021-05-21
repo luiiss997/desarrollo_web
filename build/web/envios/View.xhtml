@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EnviosViewDlg" widgetVar="EnviosViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEnviosTitle}">
+            <h:form id="EnviosViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{enviosController.selected != null}">
+                        <h:outputText value="#{bundle.ViewEnviosLabel_id}"/>
+                        <h:outputText value="#{enviosController.selected.id}" title="#{bundle.ViewEnviosTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewEnviosLabel_seguroEnvio}"/>
+                        <h:outputText value="#{enviosController.selected.seguroEnvio}" title="#{bundle.ViewEnviosTitle_seguroEnvio}"/>
+                        <h:outputText value="#{bundle.ViewEnviosLabel_fechaEnvio}"/>
+                        <h:outputText value="#{enviosController.selected.fechaEnvio}" title="#{bundle.ViewEnviosTitle_fechaEnvio}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewEnviosLabel_fechaEntrega}"/>
+                        <h:outputText value="#{enviosController.selected.fechaEntrega}" title="#{bundle.ViewEnviosTitle_fechaEntrega}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewEnviosLabel_guiaSeguimiento}"/>
+                        <h:outputText value="#{enviosController.selected.guiaSeguimiento}" title="#{bundle.ViewEnviosTitle_guiaSeguimiento}"/>
+                        <h:outputText value="#{bundle.ViewEnviosLabel_status}"/>
+                        <h:outputText value="#{enviosController.selected.status}" title="#{bundle.ViewEnviosTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewEnviosLabel_idVenta}"/>
+                        <h:outputText value="#{enviosController.selected.idVenta}" title="#{bundle.ViewEnviosTitle_idVenta}"/>
+                        <h:outputText value="#{bundle.ViewEnviosLabel_idDireccion}"/>
+                        <h:outputText value="#{enviosController.selected.idDireccion}" title="#{bundle.ViewEnviosTitle_idDireccion}"/>
+                        <h:outputText value="#{bundle.ViewEnviosLabel_idPaqueteria}"/>
+                        <h:outputText value="#{enviosController.selected.idPaqueteria}" title="#{bundle.ViewEnviosTitle_idPaqueteria}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="EnviosViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

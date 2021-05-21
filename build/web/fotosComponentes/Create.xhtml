@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FotosComponentesCreateDlg" widgetVar="FotosComponentesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateFotosComponentesTitle}">
+            <h:form id="FotosComponentesCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{fotosComponentesController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateFotosComponentesLabel_ruta}" for="ruta" />
+                        <p:inputText id="ruta" value="#{fotosComponentesController.selected.ruta}" title="#{bundle.CreateFotosComponentesTitle_ruta}" required="true" requiredMessage="#{bundle.CreateFotosComponentesRequiredMessage_ruta}"/>
+                        <p:outputLabel value="#{bundle.CreateFotosComponentesLabel_idComponente}" for="idComponente" />
+                        <p:selectOneMenu id="idComponente" value="#{fotosComponentesController.selected.idComponente}" >
+                            <f:selectItems value="#{componentesController.itemsAvailableSelectOne}"
+                                           var="idComponenteItem"
+                                           itemValue="#{idComponenteItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{fotosComponentesController.create}" value="#{bundle.Save}" update="display,:FotosComponentesListForm:datalist,:growl" oncomplete="handleSubmit(args,'FotosComponentesCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="FotosComponentesCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ComponentesViewDlg" widgetVar="ComponentesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewComponentesTitle}">
+            <h:form id="ComponentesViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{componentesController.selected != null}">
+                        <h:outputText value="#{bundle.ViewComponentesLabel_id}"/>
+                        <h:outputText value="#{componentesController.selected.id}" title="#{bundle.ViewComponentesTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewComponentesLabel_nombre}"/>
+                        <h:outputText value="#{componentesController.selected.nombre}" title="#{bundle.ViewComponentesTitle_nombre}"/>
+                        <h:outputText value="#{bundle.ViewComponentesLabel_descripcion}"/>
+                        <h:outputText value="#{componentesController.selected.descripcion}" title="#{bundle.ViewComponentesTitle_descripcion}"/>
+                        <h:outputText value="#{bundle.ViewComponentesLabel_tipo}"/>
+                        <h:outputText value="#{componentesController.selected.tipo}" title="#{bundle.ViewComponentesTitle_tipo}"/>
+                        <h:outputText value="#{bundle.ViewComponentesLabel_capacidad}"/>
+                        <h:outputText value="#{componentesController.selected.capacidad}" title="#{bundle.ViewComponentesTitle_capacidad}"/>
+                        <h:outputText value="#{bundle.ViewComponentesLabel_potencia}"/>
+                        <h:outputText value="#{componentesController.selected.potencia}" title="#{bundle.ViewComponentesTitle_potencia}"/>
+                        <h:outputText value="#{bundle.ViewComponentesLabel_certificacion}"/>
+                        <h:outputText value="#{componentesController.selected.certificacion}" title="#{bundle.ViewComponentesTitle_certificacion}"/>
+                        <h:outputText value="#{bundle.ViewComponentesLabel_FForma}"/>
+                        <h:outputText value="#{componentesController.selected.FForma}" title="#{bundle.ViewComponentesTitle_FForma}"/>
+                        <h:outputText value="#{bundle.ViewComponentesLabel_size}"/>
+                        <h:outputText value="#{componentesController.selected.size}" title="#{bundle.ViewComponentesTitle_size}"/>
+                        <h:outputText value="#{bundle.ViewComponentesLabel_resolucion}"/>
+                        <h:outputText value="#{componentesController.selected.resolucion}" title="#{bundle.ViewComponentesTitle_resolucion}"/>
+                        <h:outputText value="#{bundle.ViewComponentesLabel_velocidad}"/>
+                        <h:outputText value="#{componentesController.selected.velocidad}" title="#{bundle.ViewComponentesTitle_velocidad}"/>
+                        <h:outputText value="#{bundle.ViewComponentesLabel_socket}"/>
+                        <h:outputText value="#{componentesController.selected.socket}" title="#{bundle.ViewComponentesTitle_socket}"/>
+                        <h:outputText value="#{bundle.ViewComponentesLabel_VRam}"/>
+                        <h:outputText value="#{componentesController.selected.VRam}" title="#{bundle.ViewComponentesTitle_VRam}"/>
+                        <h:outputText value="#{bundle.ViewComponentesLabel_existencia}"/>
+                        <h:outputText value="#{componentesController.selected.existencia}" title="#{bundle.ViewComponentesTitle_existencia}"/>
+                        <h:outputText value="#{bundle.ViewComponentesLabel_precioCompra}"/>
+                        <h:outputText value="#{componentesController.selected.precioCompra}" title="#{bundle.ViewComponentesTitle_precioCompra}"/>
+                        <h:outputText value="#{bundle.ViewComponentesLabel_precioVenta}"/>
+                        <h:outputText value="#{componentesController.selected.precioVenta}" title="#{bundle.ViewComponentesTitle_precioVenta}"/>
+                        <h:outputText value="#{bundle.ViewComponentesLabel_stock}"/>
+                        <h:outputText value="#{componentesController.selected.stock}" title="#{bundle.ViewComponentesTitle_stock}"/>
+                        <h:outputText value="#{bundle.ViewComponentesLabel_status}"/>
+                        <h:outputText value="#{componentesController.selected.status}" title="#{bundle.ViewComponentesTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewComponentesLabel_idCategoria}"/>
+                        <h:outputText value="#{componentesController.selected.idCategoria}" title="#{bundle.ViewComponentesTitle_idCategoria}"/>
+                        <h:outputText value="#{bundle.ViewComponentesLabel_idMarca}"/>
+                        <h:outputText value="#{componentesController.selected.idMarca}" title="#{bundle.ViewComponentesTitle_idMarca}"/>
+                        <h:outputText value="#{bundle.ViewComponentesLabel_idModelo}"/>
+                        <h:outputText value="#{componentesController.selected.idModelo}" title="#{bundle.ViewComponentesTitle_idModelo}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ComponentesViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

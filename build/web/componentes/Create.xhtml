@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ComponentesCreateDlg" widgetVar="ComponentesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateComponentesTitle}">
+            <h:form id="ComponentesCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{componentesController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{componentesController.selected.nombre}" title="#{bundle.CreateComponentesTitle_nombre}" required="true" requiredMessage="#{bundle.CreateComponentesRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{componentesController.selected.descripcion}" title="#{bundle.CreateComponentesTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateComponentesRequiredMessage_descripcion}"/>
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_tipo}" for="tipo" />
+                        <p:inputText id="tipo" value="#{componentesController.selected.tipo}" title="#{bundle.CreateComponentesTitle_tipo}" />
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_capacidad}" for="capacidad" />
+                        <p:inputText id="capacidad" value="#{componentesController.selected.capacidad}" title="#{bundle.CreateComponentesTitle_capacidad}" />
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_potencia}" for="potencia" />
+                        <p:inputText id="potencia" value="#{componentesController.selected.potencia}" title="#{bundle.CreateComponentesTitle_potencia}" />
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_certificacion}" for="certificacion" />
+                        <p:inputText id="certificacion" value="#{componentesController.selected.certificacion}" title="#{bundle.CreateComponentesTitle_certificacion}" />
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_FForma}" for="FForma" />
+                        <p:inputText id="FForma" value="#{componentesController.selected.FForma}" title="#{bundle.CreateComponentesTitle_FForma}" />
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_size}" for="size" />
+                        <p:inputText id="size" value="#{componentesController.selected.size}" title="#{bundle.CreateComponentesTitle_size}" />
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_resolucion}" for="resolucion" />
+                        <p:inputText id="resolucion" value="#{componentesController.selected.resolucion}" title="#{bundle.CreateComponentesTitle_resolucion}" />
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_velocidad}" for="velocidad" />
+                        <p:inputText id="velocidad" value="#{componentesController.selected.velocidad}" title="#{bundle.CreateComponentesTitle_velocidad}" />
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_socket}" for="socket" />
+                        <p:inputText id="socket" value="#{componentesController.selected.socket}" title="#{bundle.CreateComponentesTitle_socket}" />
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_VRam}" for="VRam" />
+                        <p:inputText id="VRam" value="#{componentesController.selected.VRam}" title="#{bundle.CreateComponentesTitle_VRam}" />
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_existencia}" for="existencia" />
+                        <p:inputText id="existencia" value="#{componentesController.selected.existencia}" title="#{bundle.CreateComponentesTitle_existencia}" required="true" requiredMessage="#{bundle.CreateComponentesRequiredMessage_existencia}"/>
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_precioCompra}" for="precioCompra" />
+                        <p:inputText id="precioCompra" value="#{componentesController.selected.precioCompra}" title="#{bundle.CreateComponentesTitle_precioCompra}" required="true" requiredMessage="#{bundle.CreateComponentesRequiredMessage_precioCompra}"/>
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_precioVenta}" for="precioVenta" />
+                        <p:inputText id="precioVenta" value="#{componentesController.selected.precioVenta}" title="#{bundle.CreateComponentesTitle_precioVenta}" required="true" requiredMessage="#{bundle.CreateComponentesRequiredMessage_precioVenta}"/>
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_stock}" for="stock" />
+                        <p:inputText id="stock" value="#{componentesController.selected.stock}" title="#{bundle.CreateComponentesTitle_stock}" required="true" requiredMessage="#{bundle.CreateComponentesRequiredMessage_stock}"/>
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_idCategoria}" for="idCategoria" />
+                        <p:selectOneMenu id="idCategoria" value="#{componentesController.selected.idCategoria}" >
+                            <f:selectItems value="#{categoriasController.itemsAvailableSelectOne}"
+                                           var="idCategoriaItem"
+                                           itemValue="#{idCategoriaItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_idMarca}" for="idMarca" />
+                        <p:selectOneMenu id="idMarca" value="#{componentesController.selected.idMarca}" >
+                            <f:selectItems value="#{marcaController.itemsAvailableSelectOne}"
+                                           var="idMarcaItem"
+                                           itemValue="#{idMarcaItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_idModelo}" for="idModelo" />
+                        <p:selectOneMenu id="idModelo" value="#{componentesController.selected.idModelo}" >
+                            <f:selectItems value="#{modeloController.itemsAvailableSelectOne}"
+                                           var="idModeloItem"
+                                           itemValue="#{idModeloItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{componentesController.create}" value="#{bundle.Save}" update="display,:ComponentesListForm:datalist,:growl" oncomplete="handleSubmit(args,'ComponentesCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ComponentesCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

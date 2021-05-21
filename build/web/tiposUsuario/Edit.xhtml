@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TiposUsuarioEditDlg" widgetVar="TiposUsuarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTiposUsuarioTitle}">
+            <h:form id="TiposUsuarioEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tiposUsuarioController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTiposUsuarioLabel_id}" for="id" />
+                        <p:inputText disabled="true" id="id" value="#{tiposUsuarioController.selected.id}" title="#{bundle.EditTiposUsuarioTitle_id}" required="true" requiredMessage="#{bundle.EditTiposUsuarioRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditTiposUsuarioLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{tiposUsuarioController.selected.nombre}" title="#{bundle.EditTiposUsuarioTitle_nombre}" required="true" requiredMessage="#{bundle.EditTiposUsuarioRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.EditTiposUsuarioLabel_nivel}" for="nivel" />
+                        <p:inputText id="nivel" value="#{tiposUsuarioController.selected.nivel}" title="#{bundle.EditTiposUsuarioTitle_nivel}" required="true" requiredMessage="#{bundle.EditTiposUsuarioRequiredMessage_nivel}"/>
+                        <p:outputLabel value="#{bundle.EditTiposUsuarioLabel_status}" for="status" />
+                        <p:selectOneMenu id="status" value="#{tiposUsuarioController.selected.status}" required="true" requiredMessage="#{bundle.EditTiposUsuarioRequiredMessage_status}">
+                            <f:selectItem itemLabel="-- Seleccionar --" itemValue=""/>
+                            <f:selectItem itemLabel="Activo" itemValue="1"/>
+                            <f:selectItem itemLabel="Eliminado" itemValue="0"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tiposUsuarioController.update}" value="#{bundle.Save}" update="display,:TiposUsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TiposUsuarioEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TiposUsuarioEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

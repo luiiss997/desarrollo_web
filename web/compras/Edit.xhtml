@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ComprasEditDlg" widgetVar="ComprasEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditComprasTitle}">
+            <h:form id="ComprasEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{comprasController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditComprasLabel_id}" for="id" />
+                        <p:inputText disabled="true" id="id" value="#{comprasController.selected.id}" title="#{bundle.EditComprasTitle_id}" required="true" requiredMessage="#{bundle.EditComprasRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditComprasLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{comprasController.selected.fecha}" title="#{bundle.EditComprasTitle_fecha}" required="true" requiredMessage="#{bundle.EditComprasRequiredMessage_fecha}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditComprasLabel_subtotal}" for="subtotal" />
+                        <p:inputText id="subtotal" value="#{comprasController.selected.subtotal}" title="#{bundle.EditComprasTitle_subtotal}" required="true" requiredMessage="#{bundle.EditComprasRequiredMessage_subtotal}"/>
+                        <p:outputLabel value="#{bundle.EditComprasLabel_iva}" for="iva" />
+                        <p:inputText id="iva" value="#{comprasController.selected.iva}" title="#{bundle.EditComprasTitle_iva}" required="true" requiredMessage="#{bundle.EditComprasRequiredMessage_iva}"/>
+                        <p:outputLabel value="#{bundle.EditComprasLabel_total}" for="total" />
+                        <p:inputText id="total" value="#{comprasController.selected.total}" title="#{bundle.EditComprasTitle_total}" required="true" requiredMessage="#{bundle.EditComprasRequiredMessage_total}"/>
+                        <p:outputLabel value="#{bundle.EditComprasLabel_status}" for="status" />
+                        <p:selectOneMenu id="status" value="#{comprasController.selected.status}" required="true" requiredMessage="#{bundle.EditComprasRequiredMessage_status}">
+                            <f:selectItem itemLabel="-- Seleccionar --" itemValue=""/>
+                            <f:selectItem itemLabel="Activo" itemValue="1"/>
+                            <f:selectItem itemLabel="Eliminado" itemValue="0"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditComprasLabel_idProveedor}" for="idProveedor" />
+                        <p:selectOneMenu id="idProveedor" value="#{comprasController.selected.idProveedor}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{proveedoresController.itemsAvailableSelectOne}"
+                                           var="idProveedorItem"
+                                           itemValue="#{idProveedorItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditComprasLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{comprasController.selected.idUsuario}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuariosController.itemsAvailableSelectOne}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{comprasController.update}" value="#{bundle.Save}" update="display,:ComprasListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ComprasEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ComprasEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

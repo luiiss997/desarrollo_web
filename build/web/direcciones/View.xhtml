@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DireccionesViewDlg" widgetVar="DireccionesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDireccionesTitle}">
+            <h:form id="DireccionesViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{direccionesController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDireccionesLabel_id}"/>
+                        <h:outputText value="#{direccionesController.selected.id}" title="#{bundle.ViewDireccionesTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewDireccionesLabel_codigoPostal}"/>
+                        <h:outputText value="#{direccionesController.selected.codigoPostal}" title="#{bundle.ViewDireccionesTitle_codigoPostal}"/>
+                        <h:outputText value="#{bundle.ViewDireccionesLabel_colonia}"/>
+                        <h:outputText value="#{direccionesController.selected.colonia}" title="#{bundle.ViewDireccionesTitle_colonia}"/>
+                        <h:outputText value="#{bundle.ViewDireccionesLabel_calle}"/>
+                        <h:outputText value="#{direccionesController.selected.calle}" title="#{bundle.ViewDireccionesTitle_calle}"/>
+                        <h:outputText value="#{bundle.ViewDireccionesLabel_noExterior}"/>
+                        <h:outputText value="#{direccionesController.selected.noExterior}" title="#{bundle.ViewDireccionesTitle_noExterior}"/>
+                        <h:outputText value="#{bundle.ViewDireccionesLabel_noInterior}"/>
+                        <h:outputText value="#{direccionesController.selected.noInterior}" title="#{bundle.ViewDireccionesTitle_noInterior}"/>
+                        <h:outputText value="#{bundle.ViewDireccionesLabel_calle1}"/>
+                        <h:outputText value="#{direccionesController.selected.calle1}" title="#{bundle.ViewDireccionesTitle_calle1}"/>
+                        <h:outputText value="#{bundle.ViewDireccionesLabel_calle2}"/>
+                        <h:outputText value="#{direccionesController.selected.calle2}" title="#{bundle.ViewDireccionesTitle_calle2}"/>
+                        <h:outputText value="#{bundle.ViewDireccionesLabel_telefono}"/>
+                        <h:outputText value="#{direccionesController.selected.telefono}" title="#{bundle.ViewDireccionesTitle_telefono}"/>
+                        <h:outputText value="#{bundle.ViewDireccionesLabel_status}"/>
+                        <h:outputText value="#{direccionesController.selected.status}" title="#{bundle.ViewDireccionesTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewDireccionesLabel_idUsuario}"/>
+                        <h:outputText value="#{direccionesController.selected.idUsuario}" title="#{bundle.ViewDireccionesTitle_idUsuario}"/>
+                        <h:outputText value="#{bundle.ViewDireccionesLabel_idEstado}"/>
+                        <h:outputText value="#{direccionesController.selected.idEstado}" title="#{bundle.ViewDireccionesTitle_idEstado}"/>
+                        <h:outputText value="#{bundle.ViewDireccionesLabel_idMunicipio}"/>
+                        <h:outputText value="#{direccionesController.selected.idMunicipio}" title="#{bundle.ViewDireccionesTitle_idMunicipio}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DireccionesViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

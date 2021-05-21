@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ComponentesEditDlg" widgetVar="ComponentesEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditComponentesTitle}">
+            <h:form id="ComponentesEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{componentesController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditComponentesLabel_id}" for="id" />
+                        <p:inputText disabled="true" id="id" value="#{componentesController.selected.id}" title="#{bundle.EditComponentesTitle_id}" required="true" requiredMessage="#{bundle.EditComponentesRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditComponentesLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{componentesController.selected.nombre}" title="#{bundle.EditComponentesTitle_nombre}" required="true" requiredMessage="#{bundle.EditComponentesRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.EditComponentesLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{componentesController.selected.descripcion}" title="#{bundle.EditComponentesTitle_descripcion}" required="true" requiredMessage="#{bundle.EditComponentesRequiredMessage_descripcion}"/>
+                        <p:outputLabel value="#{bundle.EditComponentesLabel_tipo}" for="tipo" />
+                        <p:inputText id="tipo" value="#{componentesController.selected.tipo}" title="#{bundle.EditComponentesTitle_tipo}" />
+                        <p:outputLabel value="#{bundle.EditComponentesLabel_capacidad}" for="capacidad" />
+                        <p:inputText id="capacidad" value="#{componentesController.selected.capacidad}" title="#{bundle.EditComponentesTitle_capacidad}" />
+                        <p:outputLabel value="#{bundle.EditComponentesLabel_potencia}" for="potencia" />
+                        <p:inputText id="potencia" value="#{componentesController.selected.potencia}" title="#{bundle.EditComponentesTitle_potencia}" />
+                        <p:outputLabel value="#{bundle.EditComponentesLabel_certificacion}" for="certificacion" />
+                        <p:inputText id="certificacion" value="#{componentesController.selected.certificacion}" title="#{bundle.EditComponentesTitle_certificacion}" />
+                        <p:outputLabel value="#{bundle.EditComponentesLabel_FForma}" for="FForma" />
+                        <p:inputText id="FForma" value="#{componentesController.selected.FForma}" title="#{bundle.EditComponentesTitle_FForma}" />
+                        <p:outputLabel value="#{bundle.EditComponentesLabel_size}" for="size" />
+                        <p:inputText id="size" value="#{componentesController.selected.size}" title="#{bundle.EditComponentesTitle_size}" />
+                        <p:outputLabel value="#{bundle.EditComponentesLabel_resolucion}" for="resolucion" />
+                        <p:inputText id="resolucion" value="#{componentesController.selected.resolucion}" title="#{bundle.EditComponentesTitle_resolucion}" />
+                        <p:outputLabel value="#{bundle.EditComponentesLabel_velocidad}" for="velocidad" />
+                        <p:inputText id="velocidad" value="#{componentesController.selected.velocidad}" title="#{bundle.EditComponentesTitle_velocidad}" />
+                        <p:outputLabel value="#{bundle.EditComponentesLabel_socket}" for="socket" />
+                        <p:inputText id="socket" value="#{componentesController.selected.socket}" title="#{bundle.EditComponentesTitle_socket}" />
+                        <p:outputLabel value="#{bundle.EditComponentesLabel_VRam}" for="VRam" />
+                        <p:inputText id="VRam" value="#{componentesController.selected.VRam}" title="#{bundle.EditComponentesTitle_VRam}" />
+                        <p:outputLabel value="#{bundle.EditComponentesLabel_existencia}" for="existencia" />
+                        <p:inputText id="existencia" value="#{componentesController.selected.existencia}" title="#{bundle.EditComponentesTitle_existencia}" required="true" requiredMessage="#{bundle.EditComponentesRequiredMessage_existencia}"/>
+                        <p:outputLabel value="#{bundle.EditComponentesLabel_precioCompra}" for="precioCompra" />
+                        <p:inputText id="precioCompra" value="#{componentesController.selected.precioCompra}" title="#{bundle.EditComponentesTitle_precioCompra}" required="true" requiredMessage="#{bundle.EditComponentesRequiredMessage_precioCompra}"/>
+                        <p:outputLabel value="#{bundle.EditComponentesLabel_precioVenta}" for="precioVenta" />
+                        <p:inputText id="precioVenta" value="#{componentesController.selected.precioVenta}" title="#{bundle.EditComponentesTitle_precioVenta}" required="true" requiredMessage="#{bundle.EditComponentesRequiredMessage_precioVenta}"/>
+                        <p:outputLabel value="#{bundle.EditComponentesLabel_stock}" for="stock" />
+                        <p:inputText id="stock" value="#{componentesController.selected.stock}" title="#{bundle.EditComponentesTitle_stock}" required="true" requiredMessage="#{bundle.EditComponentesRequiredMessage_stock}"/>
+                        <p:outputLabel value="#{bundle.EditComponentesLabel_status}" for="status" />
+                        <p:selectOneMenu id="status" value="#{componentesController.selected.status}" required="true" requiredMessage="#{bundle.EditComponentesRequiredMessage_status}">
+                            <f:selectItem itemLabel="-- Seleccionar --" itemValue=""/>
+                            <f:selectItem itemLabel="Activo" itemValue="1"/>
+                            <f:selectItem itemLabel="Eliminado" itemValue="0"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditComponentesLabel_idCategoria}" for="idCategoria" />
+                        <p:selectOneMenu id="idCategoria" value="#{componentesController.selected.idCategoria}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{categoriasController.itemsAvailableSelectOne}"
+                                           var="idCategoriaItem"
+                                           itemValue="#{idCategoriaItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditComponentesLabel_idMarca}" for="idMarca" />
+                        <p:selectOneMenu id="idMarca" value="#{componentesController.selected.idMarca}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{marcaController.itemsAvailableSelectOne}"
+                                           var="idMarcaItem"
+                                           itemValue="#{idMarcaItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditComponentesLabel_idModelo}" for="idModelo" />
+                        <p:selectOneMenu id="idModelo" value="#{componentesController.selected.idModelo}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{modeloController.itemsAvailableSelectOne}"
+                                           var="idModeloItem"
+                                           itemValue="#{idModeloItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{componentesController.update}" value="#{bundle.Save}" update="display,:ComponentesListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ComponentesEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ComponentesEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

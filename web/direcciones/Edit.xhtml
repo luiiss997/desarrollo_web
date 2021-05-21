@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DireccionesEditDlg" widgetVar="DireccionesEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDireccionesTitle}">
+            <h:form id="DireccionesEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{direccionesController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_id}" for="id" />
+                        <p:inputText disabled="true" id="id" value="#{direccionesController.selected.id}" title="#{bundle.EditDireccionesTitle_id}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_codigoPostal}" for="codigoPostal" />
+                        <p:inputText id="codigoPostal" value="#{direccionesController.selected.codigoPostal}" title="#{bundle.EditDireccionesTitle_codigoPostal}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_codigoPostal}"/>
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_colonia}" for="colonia" />
+                        <p:inputText id="colonia" value="#{direccionesController.selected.colonia}" title="#{bundle.EditDireccionesTitle_colonia}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_colonia}"/>
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_calle}" for="calle" />
+                        <p:inputText id="calle" value="#{direccionesController.selected.calle}" title="#{bundle.EditDireccionesTitle_calle}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_calle}"/>
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_noExterior}" for="noExterior" />
+                        <p:inputText id="noExterior" value="#{direccionesController.selected.noExterior}" title="#{bundle.EditDireccionesTitle_noExterior}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_noExterior}"/>
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_noInterior}" for="noInterior" />
+                        <p:inputText id="noInterior" value="#{direccionesController.selected.noInterior}" title="#{bundle.EditDireccionesTitle_noInterior}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_noInterior}"/>
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_calle1}" for="calle1" />
+                        <p:inputText id="calle1" value="#{direccionesController.selected.calle1}" title="#{bundle.EditDireccionesTitle_calle1}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_calle1}"/>
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_calle2}" for="calle2" />
+                        <p:inputText id="calle2" value="#{direccionesController.selected.calle2}" title="#{bundle.EditDireccionesTitle_calle2}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_calle2}"/>
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_telefono}" for="telefono" />
+                        <p:inputText id="telefono" value="#{direccionesController.selected.telefono}" title="#{bundle.EditDireccionesTitle_telefono}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_telefono}"/>
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_status}" for="status" />
+                        <p:selectOneMenu id="status" value="#{direccionesController.selected.status}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_status}">
+                            <f:selectItem itemLabel="-- Seleccionar --" itemValue=""/>
+                            <f:selectItem itemLabel="Activo" itemValue="1"/>
+                            <f:selectItem itemLabel="Eliminado" itemValue="0"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{direccionesController.selected.idUsuario}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idUsuario}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuariosController.itemsAvailableSelectOne}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_idEstado}" for="idEstado" />
+                        <p:selectOneMenu id="idEstado" value="#{direccionesController.selected.idEstado}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idEstado}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{estadosController.itemsAvailableSelectOne}"
+                                           var="idEstadoItem"
+                                           itemValue="#{idEstadoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_idMunicipio}" for="idMunicipio" />
+                        <p:selectOneMenu id="idMunicipio" value="#{direccionesController.selected.idMunicipio}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idMunicipio}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{municipiosController.itemsAvailableSelectOne}"
+                                           var="idMunicipioItem"
+                                           itemValue="#{idMunicipioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{direccionesController.update}" value="#{bundle.Save}" update="display,:DireccionesListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DireccionesEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DireccionesEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

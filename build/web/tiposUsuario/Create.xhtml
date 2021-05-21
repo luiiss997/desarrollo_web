@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TiposUsuarioCreateDlg" widgetVar="TiposUsuarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTiposUsuarioTitle}">
+            <h:form id="TiposUsuarioCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tiposUsuarioController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTiposUsuarioLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{tiposUsuarioController.selected.nombre}" title="#{bundle.CreateTiposUsuarioTitle_nombre}" required="true" requiredMessage="#{bundle.CreateTiposUsuarioRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.CreateTiposUsuarioLabel_nivel}" for="nivel" />
+                        <p:inputText id="nivel" value="#{tiposUsuarioController.selected.nivel}" title="#{bundle.CreateTiposUsuarioTitle_nivel}" required="true" requiredMessage="#{bundle.CreateTiposUsuarioRequiredMessage_nivel}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tiposUsuarioController.create}" value="#{bundle.Save}" update="display,:TiposUsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'TiposUsuarioCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TiposUsuarioCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

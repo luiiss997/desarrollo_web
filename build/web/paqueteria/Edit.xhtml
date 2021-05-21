@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PaqueteriaEditDlg" widgetVar="PaqueteriaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPaqueteriaTitle}">
+            <h:form id="PaqueteriaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{paqueteriaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPaqueteriaLabel_id}" for="id" />
+                        <p:inputText disabled="true" id="id" value="#{paqueteriaController.selected.id}" title="#{bundle.EditPaqueteriaTitle_id}" required="true" requiredMessage="#{bundle.EditPaqueteriaRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditPaqueteriaLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{paqueteriaController.selected.nombre}" title="#{bundle.EditPaqueteriaTitle_nombre}" required="true" requiredMessage="#{bundle.EditPaqueteriaRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.EditPaqueteriaLabel_precioEnvio}" for="precioEnvio" />
+                        <p:inputText id="precioEnvio" value="#{paqueteriaController.selected.precioEnvio}" title="#{bundle.EditPaqueteriaTitle_precioEnvio}" required="true" requiredMessage="#{bundle.EditPaqueteriaRequiredMessage_precioEnvio}"/>
+                        <p:outputLabel value="#{bundle.EditPaqueteriaLabel_status}" for="status" />
+                        <p:selectOneMenu id="status" value="#{paqueteriaController.selected.status}" required="true" requiredMessage="#{bundle.EditPaqueteriaRequiredMessage_status}">
+                            <f:selectItem itemLabel="-- Seleccionar --" itemValue=""/>
+                            <f:selectItem itemLabel="Activo" itemValue="1"/>
+                            <f:selectItem itemLabel="Eliminado" itemValue="0"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{paqueteriaController.update}" value="#{bundle.Save}" update="display,:PaqueteriaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PaqueteriaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PaqueteriaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
