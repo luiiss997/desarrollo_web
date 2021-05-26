@@ -57,16 +57,10 @@
                         <div class="user_option_box">
                             <a href="" class="account-link">
                                 <i class="fa fa-user" aria-hidden="true"></i>
-                                <span>
-                                    My Account
+                                <span>                                
+                                    #{sessionScope.nombre_completo}
                                 </span>
-                            </a>
-                            <a href="" class="cart-link">
-                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                <span>
-                                    Cart
-                                </span>
-                            </a>
+                            </a>                         
                         </div>
                     </div>
 
@@ -91,7 +85,7 @@
                                     <h:link class="nav-link" outcome="/views/supervisor/home" value="Home"></h:link>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="about.html"> About</a>
+                                    <a class="nav-link" href="about.html">About</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="product.html">Products</a>
@@ -123,8 +117,10 @@
                                         <h:link class="dropdown-item" outcome="/ventas/List" value="Ventas"/>
                                     </div>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="why.html">Why Us</a>
+                                <li class="nav-item">                                                             
+                                    <h:form>                                      
+                                        <p:commandButton type="text" value="Cerrar Sesión" styleClass="ui-button-secondary ui-button-flat" actionListener="#{login.cerrarSesion()}"/>                                  
+                                    </h:form>                                  
                                 </li>                              
                             </ul>
                         </div>

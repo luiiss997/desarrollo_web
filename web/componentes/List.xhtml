@@ -143,13 +143,13 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListComponentesTitle_idMarca}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idMarca}"/>
+                            <h:outputText value="#{item.idMarca.nombre}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListComponentesTitle_idModelo}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idModelo}"/>
+                            <h:outputText value="#{item.idModelo.nombre}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{componentesController.prepareCreate}" update=":ComponentesCreateForm" oncomplete="PF('ComponentesCreateDialog').show()"/>

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/templeates/templeate_main.xhtml">
+        <ui:define name="contenido_principal">
+
+            <!--  contact -->
+            <div class="contact">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="titlepage">
+                                <h2>Contact Now</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-10 offset-md-1">
+                            <form id="request" class="main_form">
+                                <div class="row">
+                                    <div class="col-md-12 ">
+                                        <input class="contactus" placeholder="Name" type="type" name="Name"/> 
+                                    </div>
+                                    <div class="col-md-12">
+                                        <input class="contactus" placeholder="Email" type="type" name="Email"/> 
+                                    </div>
+                                    <div class="col-md-12">
+                                        <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number"/>                          
+                                    </div>
+                                    <div class="col-md-12">
+                                        <textarea class="textarea" placeholder="Message" type="type" Message="Name">Message </textarea>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button class="send_btn">Registrarse</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end contact -->
+            
+        </ui:define>
+    </ui:composition>
+</html>
+

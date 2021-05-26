@@ -3,7 +3,6 @@ package control;
 import modelo.Usuarios;
 import control.util.JsfUtil;
 import control.util.JsfUtil.PersistAction;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -17,6 +16,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.apache.commons.codec.digest.DigestUtils;
 
 @Named("usuariosController")
 @SessionScoped
@@ -69,6 +69,10 @@ public class UsuariosController implements Serializable {
 
      public void create() {
         selected.setStatus(1);
+        
+        String pwe=DigestUtils.sha1Hex(selected.getPassword());
+        selected.setPassword(pwe);
+        
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuariosCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -76,6 +80,9 @@ public class UsuariosController implements Serializable {
     }
 
     public void update() {
+        String pwe=DigestUtils.sha1Hex(selected.getPassword());
+        selected.setPassword(pwe);
+        
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuariosUpdated"));
         items = null;
         items2 = null; 

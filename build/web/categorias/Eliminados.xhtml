@@ -6,13 +6,12 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-
-        <ui:define name="title">
-            <h:outputText value="Lista de categorias eliminadas"></h:outputText>
+    <ui:composition template="/templeates/templeate_crud.xhtml">
+        <ui:define name="titulo_crud" >
+            <h2>Lista de Categorias eliminadas</h2>
         </ui:define>
 
-        <ui:define name="body">
+        <ui:define name="contenido_crud">
             <h:form id="CategoriasListForm">
                 <p:panel header="Lista de categorias eliminadas">
                     <p:dataTable id="datalist" value="#{categoriasController.items2}" var="item"

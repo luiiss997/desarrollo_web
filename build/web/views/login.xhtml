@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/templeates/templeate_main.xhtml">
+
+        <ui:define name="contenido_principal">
+
+            <!--  contact -->
+            <div id="login">
+                <h3 class="text-center text-white pt-5">Login form</h3>
+                <div class="container">
+                    <div id="login-row" class="row justify-content-center align-items-center">
+                        <div id="login-column" class="col-md-6">
+                            <div id="login-box" class="col-md-12">
+                                <!--jsftype-->
+                                <h:form id="login-form" class="form">
+                                    <h3 class="text-center text-secondary">Iniciar Sesión</h3>
+                                    <div class="form-group">
+                                        <p:outputLabel for="user" value="Correo: " class="text-secondary"/><br/>
+                                        <p:inputText id="user" type="text" class="form-control" required="true" value="#{login.username}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <p:outputLabel for="pass" value="Contraseña: " class="text-secondary"/><br/>
+                                        <p:inputText id="pass" type="password" class="form-control" required="true" value="#{login.password}" />                                       
+                                    </div>
+                                    <div class="form-group text-center">                                      
+                                        <p:commandButton class="btn btn-success btn-md" actionListener="#{login.Acceso()}" value="Ingresar" update=":growl" />
+                                    </div>
+                                    <div id="register-link" class="text-center">
+                                        <p>¿No estas registrado? <a href="#" class="text-info">Registrate Aquí</a></p>
+                                    </div>
+                                </h:form>                                                                                          
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end contact -->
+
+        </ui:define>
+    </ui:composition>
+</html>
+

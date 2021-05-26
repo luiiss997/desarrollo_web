@@ -11,6 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import modelo.Usuarios;
+import org.apache.commons.codec.cli.Digest;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -50,4 +52,18 @@ public class UsuariosFacade extends AbstractFacade<Usuarios> {
             return null;
         }
     }
+     //abi01@gmail.com 123456789
+     public Usuarios Acceder(String user, String pw){
+         String pwe = DigestUtils.sha1Hex(pw);
+         Query query = em.createNamedQuery("Usuarios.Acceder", Usuarios.class)
+                 .setParameter("email", user)
+                 .setParameter("pass", pwe);
+         List<Usuarios> list = query.getResultList();
+         if(!list.isEmpty()){
+             return list.get(0);
+         }else{
+             return null;
+         }
+     }
+     
 }

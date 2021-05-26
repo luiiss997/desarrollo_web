@@ -81,7 +81,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEnviosTitle_idPaqueteria}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idPaqueteria}"/>
+                            <h:outputText value="#{item.idPaqueteria.nombre}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{enviosController.prepareCreate}" update=":EnviosCreateForm" oncomplete="PF('EnviosCreateDialog').show()"/>
