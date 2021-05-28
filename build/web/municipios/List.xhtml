@@ -4,10 +4,11 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"> 
 
-    <ui:composition template="/templeates/templeate_crud.xhtml">
+    <ui:composition template="/templeates/templeate_crud.xhtml">      
         <ui:define name="titulo_crud" >
+            <f:event type="preRenderView" listener="#{login.verifySesionAndLevels(1)}"/>
             <h2>Lista de municipios</h2>
         </ui:define>
 

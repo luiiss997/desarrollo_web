@@ -8,6 +8,7 @@
 
     <ui:composition template="/templeates/templeate_crud.xhtml">
         <ui:define name="titulo_crud" >
+            <f:event type="preRenderView" listener="#{login.verifySesionAndLevels(1)}"/>
             <h2>Lista de tipos de pago</h2>
         </ui:define>
 

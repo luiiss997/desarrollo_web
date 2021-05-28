@@ -22,7 +22,6 @@
         <!-- bootstrap core css -->
         <h:outputStylesheet name="assets/css/bootstrap.css" />
 
-
         <!-- font awesome style -->
         <h:outputStylesheet name="assets/css/font-awesome.min.css" />
 
@@ -31,7 +30,7 @@
         <!-- responsive style -->
         <h:outputStylesheet name="assets/css/responsive.css" />
 
-        <title>Facelet Title</title>
+        <title>Supervisor</title>
     </h:head>
     <h:body>
         <p:growl id="growl" life="3000" />
@@ -57,16 +56,10 @@
                         <div class="user_option_box">
                             <a href="" class="account-link">
                                 <i class="fa fa-user" aria-hidden="true"></i>
-                                <span>
-                                    My Account
+                                <span>                                
+                                    #{sessionScope.nombre_completo}
                                 </span>
-                            </a>
-                            <a href="" class="cart-link">
-                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                <span>
-                                    Cart
-                                </span>
-                            </a>
+                            </a>                         
                         </div>
                     </div>
 
@@ -76,9 +69,7 @@
                 <div class="container-fluid">
                     <nav class="navbar navbar-expand-lg custom_nav-container ">
                         <a class="navbar-brand" href="index.html">
-                            <span>
-                                Minics
-                            </span>
+                            <h:link class="navbar-brand" outcome="/views/supervisor/home"><span>Minics</span></h:link>    
                         </a>
 
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,7 +82,7 @@
                                     <h:link class="nav-link" outcome="/views/supervisor/home" value="Home"></h:link>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="about.html"> About</a>
+                                    <a class="nav-link" href="about.html">About</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="product.html">Products</a>
@@ -103,28 +94,18 @@
                                     </a>
                                     <div class="dropdown-menu">
                                         <h:link class="dropdown-item" outcome="/categorias/List" value="Categorias"/>
-                                        <h:link class="dropdown-item"  outcome="/componentes/List" value="Componentes"/>
-                                        <h:link class="dropdown-item" outcome="/compras/List" value="Compras"/>
-                                        <h:link class="dropdown-item" outcome="/detalleCompra/List" value="Detalles Compras"/>
-                                        <h:link class="dropdown-item" outcome="/detalleVenta/List" value="Detalles Ventas"/>
-                                        <h:link class="dropdown-item" outcome="/direcciones/List" value="Direcciones"/>
-                                        <h:link class="dropdown-item" outcome="/envios/List" value="Envios"/>
-                                        <h:link class="dropdown-item" outcome="/estados/List" value="Estados"/>
+                                        <h:link class="dropdown-item" outcome="/componentes/List" value="Componentes"/>                                                                              
                                         <h:link class="dropdown-item" outcome="/fotosComponentes/List" value="FotosComponentes"/>
                                         <h:link class="dropdown-item" outcome="/marca/List" value="Marcas"/>
-                                        <h:link class="dropdown-item" outcome="/modelo/List" value="Modelos"/>
-                                        <h:link class="dropdown-item" outcome="/municipios/List" value="Municipios"/>
-                                        <h:link class="dropdown-item" outcome="/paises/List" value="Paises"/>
-                                        <h:link class="dropdown-item" outcome="/paqueteria/List" value="Paqueterias"/>
-                                        <h:link class="dropdown-item" outcome="/proveedores/List" value="Proveedores"/>
-                                        <h:link class="dropdown-item" outcome="/tiposPago/List" value="Tipos de Pago"/>
-                                        <h:link class="dropdown-item" outcome="/tiposUsuario/List" value="Tipos de Usuario"/>
-                                        <h:link class="dropdown-item" outcome="/usuarios/List" value="Usuarios"/>
+                                        <h:link class="dropdown-item" outcome="/modelo/List" value="Modelos"/>                                     
+                                        <h:link class="dropdown-item" outcome="/proveedores/List" value="Proveedores"/>                                       
                                         <h:link class="dropdown-item" outcome="/ventas/List" value="Ventas"/>
                                     </div>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="why.html">Why Us</a>
+                                <li class="nav-item">                                                             
+                                    <h:form>                                      
+                                        <p:commandButton type="text" value="Cerrar Sesión" styleClass="ui-button-secondary ui-button-flat" actionListener="#{login.cerrarSesion()}"/>                                  
+                                    </h:form>                                  
                                 </li>                              
                             </ul>
                         </div>
@@ -134,23 +115,25 @@
         </header>
         <!-- end header section -->
 
-
         <ui:insert name="contenido_principal"/>
 
         <!-- client section -->
         <section class="client_section layout_padding-bottom">
             <div class="container">
                 <div class="heading_container heading_center">
+                    <br/>
                     <ui:insert name="titulo_crud"/>
                 </div>
             </div>
-            <div class="client_container ">
-                <ui:insert name="contenido_crud"/>
+            <div class="client_container">
+                <div class="containeruwu">
+                    <div class="box">
+                        <ui:insert name="contenido_crud"/>
+                    </div>
+                </div>
             </div>
         </section>
         <!-- end client section -->
-
-
 
         <!-- info section -->
         <section class="info_section ">
@@ -269,7 +252,7 @@
         <!-- footer section -->
 
         <!-- jQery -->
-        <h:outputScript name="assets/js/jquery-3.4.1.min.js"/>
+        <!-- <h:outputScript name="assets/js/jquery-3.4.1.min.js"/> -->
         <!-- bootstrap js -->
         <h:outputScript name="assets/js/bootstrap.js"/>
         <!-- custom js -->
@@ -277,4 +260,3 @@
 
     </h:body>
 </html>
-

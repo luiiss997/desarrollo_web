@@ -3,11 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
-
-     <ui:composition template="/templeates/templeate_crud.xhtml">      
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+       
+      <ui:composition template="/templeates/templeate_crud.xhtml">      
 
         <ui:define name="contenido_crud">
+            <f:event type="preRenderView" listener="#{login.verifySesionAndLevels(123)}"/>
 
             <!-- slider section -->
             <section class="slider_section">
