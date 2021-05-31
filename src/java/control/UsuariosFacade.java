@@ -11,7 +11,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import modelo.Usuarios;
-import org.apache.commons.codec.cli.Digest;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
@@ -58,6 +57,17 @@ public class UsuariosFacade extends AbstractFacade<Usuarios> {
          Query query = em.createNamedQuery("Usuarios.Acceder", Usuarios.class)
                  .setParameter("email", user)
                  .setParameter("pass", pwe);
+         List<Usuarios> list = query.getResultList();
+         if(!list.isEmpty()){
+             return list.get(0);
+         }else{
+             return null;
+         }
+     }
+     
+     public Usuarios buscarEmail(String email){
+         Query query = em.createNamedQuery("Usuarios.findByEmail", Usuarios.class)
+                 .setParameter("email", email);
          List<Usuarios> list = query.getResultList();
          if(!list.isEmpty()){
              return list.get(0);

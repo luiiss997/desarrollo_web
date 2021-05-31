@@ -432,7 +432,7 @@ a:focus {
 }
 
 .product_section .box .img-box img {
-  height: 175px;
+  
   max-width: 100%;
 }
 
@@ -793,6 +793,19 @@ a:focus {
   background-color: #EAEAEA;
 }
 #login .container #login-row #login-column #login-box #login-form {
+  padding: 20px;
+}
+
+
+/* register section*/
+#login2 .container #login-row #login-column #login-box {
+  margin-bottom: 120px;
+  max-width: 800px;
+  height: auto;
+  border: 1px solid #9C9C9C;
+  background-color: #EAEAEA;
+}
+#login2 .container #login-row #login-column #login-box #login-form {
   padding: 20px;
 }
 
