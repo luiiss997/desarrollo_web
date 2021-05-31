@@ -21,7 +21,7 @@ import modelo.Usuarios;
  */
 @Named(value = "login")
 @SessionScoped
-public class login implements Serializable {
+public class Login implements Serializable {
 
     @EJB
     private UsuariosFacade ejbFacade;
@@ -55,12 +55,12 @@ public class login implements Serializable {
         this.usuario_auth = usuario_auth;
     }
 
-    public login() {
+    public Login() {
         httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
     }
 
-    public void Acceso() throws IOException {
-        httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+    public void Acceso() throws IOException {   
+        httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();         
         usuario_auth = ejbFacade.Acceder(username, password);
         if (usuario_auth != null) {//poner todas la variables de usuario
             httpServletRequest.getSession().setAttribute("usuario", usuario_auth);
@@ -75,7 +75,7 @@ public class login implements Serializable {
                     FacesContext.getCurrentInstance().getExternalContext().redirect("empresa/home.xhtml");
                     break;
                 case 4://Cliente
-                    
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("cliente/home.xhtml");
                     break;
             }
         } else {
@@ -94,40 +94,40 @@ public class login implements Serializable {
 
     public void verifySesionAndLevels(int niveles) throws IOException {
         httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        Usuarios user = (Usuarios) httpServletRequest.getSession().getAttribute("usuario");        
+        Usuarios user = (Usuarios) httpServletRequest.getSession().getAttribute("usuario");
         if (user != null) {
-            int nivel=user.getIdTipoUsu().getNivel();
+            int nivel = user.getIdTipoUsu().getNivel();
             if (nivel != 1) {
                 switch (niveles) {
                     case 1:
-                        if(nivel==4){
+                        if (nivel == 4) {
                             FacesContext.getCurrentInstance().getExternalContext().redirect("/desarrollo_web/faces/views/cliente/sin_privilegios.xhtml");
-                        }else{
+                        } else {
                             FacesContext.getCurrentInstance().getExternalContext().redirect("/desarrollo_web/faces/views/empresa/sin_privilegios.xhtml");
                         }
                         break;
                     case 123:
-                        if(nivel==4){
+                        if (nivel == 4) {
                             FacesContext.getCurrentInstance().getExternalContext().redirect("/desarrollo_web/faces/views/cliente/sin_privilegios.xhtml");
                         }
                         break;
                     case 12:
                         if (nivel == 4) {
                             FacesContext.getCurrentInstance().getExternalContext().redirect("/desarrollo_web/faces/views/cliente/sin_privilegios.xhtml");
-                        }else {
-                            if(nivel == 3){
+                        } else {
+                            if (nivel == 3) {
                                 FacesContext.getCurrentInstance().getExternalContext().redirect("/desarrollo_web/faces/views/empresa/sin_privilegios.xhtml");
                             }
-                        }                        
+                        }
                         break;
                     case 13:
-                         if (nivel == 4) {
+                        if (nivel == 4) {
                             FacesContext.getCurrentInstance().getExternalContext().redirect("/desarrollo_web/faces/views/cliente/sin_privilegios.xhtml");
-                        }else {
-                            if(nivel == 2){
+                        } else {
+                            if (nivel == 2) {
                                 FacesContext.getCurrentInstance().getExternalContext().redirect("/desarrollo_web/faces/views/empresa/sin_privilegios.xhtml");
                             }
-                        }     
+                        }
                         break;
                 }
             }
