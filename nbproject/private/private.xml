@@ -3,8 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Z:/Luis/Documents/NetBeansProjects/desarrollo_web/web/views/cliente/home.xhtml</file>
-            <file>file:/Z:/Luis/Documents/NetBeansProjects/desarrollo_web/web/views/cliente/productos.xhtml</file>
+            <file>file:/Z:/Luis/Documents/NetBeansProjects/desarrollo_web/src/java/control/DireccionesFacade.java</file>
+            <file>file:/Z:/Luis/Documents/NetBeansProjects/desarrollo_web/src/java/control/MunicipiosFacade.java</file>
+            <file>file:/Z:/Luis/Documents/NetBeansProjects/desarrollo_web/web/direcciones/List.xhtml</file>
+            <file>file:/Z:/Luis/Documents/NetBeansProjects/desarrollo_web/src/java/control/UsuariosFacade.java</file>
+            <file>file:/Z:/Luis/Documents/NetBeansProjects/desarrollo_web/src/java/modelo/Direcciones.java</file>
+            <file>file:/Z:/Luis/Documents/NetBeansProjects/desarrollo_web/web/direcciones/Create.xhtml</file>
+            <file>file:/Z:/Luis/Documents/NetBeansProjects/desarrollo_web/src/java/control/DireccionesController.java</file>
+            <file>file:/Z:/Luis/Documents/NetBeansProjects/desarrollo_web/src/java/modelo/Municipios.java</file>
         </group>
     </open-files>
 </project-private>

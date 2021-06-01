@@ -9,7 +9,7 @@ import modelo.Municipios;
 import modelo.Paises;
 import modelo.Proveedores;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2021-05-30T22:24:19")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2021-05-31T20:16:29")
 @StaticMetamodel(Estados.class)
 public class Estados_ { 
 

@@ -38,7 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Municipios.findActive", query = "SELECT m FROM Municipios m WHERE m.status = 1")
     , @NamedQuery(name = "Municipios.findDelated", query = "SELECT m FROM Municipios m WHERE m.status = 0")
     , @NamedQuery(name = "Municipios.findByNombre", query = "SELECT m FROM Municipios m WHERE m.nombre = :nombre")
-    , @NamedQuery(name = "Municipios.findByStatus", query = "SELECT m FROM Municipios m WHERE m.status = :status")})
+    , @NamedQuery(name = "Municipios.findByStatus", query = "SELECT m FROM Municipios m WHERE m.status = :status")
+    , @NamedQuery(name = "Municipios.findByIdEstado", query = "SELECT m FROM Municipios m WHERE m.idEstado.id = :idEstado")})
 public class Municipios implements Serializable {
 
     private static final long serialVersionUID = 1L;

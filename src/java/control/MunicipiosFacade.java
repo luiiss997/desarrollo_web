@@ -51,4 +51,16 @@ public class MunicipiosFacade extends AbstractFacade<Municipios> {
         }
     }
     
+    public List<Municipios> busquedaEstado(int idEstado){
+        Query consulta = em.createNamedQuery("Municipios.findByIdEstado",Municipios.class)
+                .setParameter("idEstado", idEstado);
+              
+        List<Municipios> lista = consulta.getResultList();
+        if(!lista.isEmpty()){
+            return lista;
+        }else{
+            return null;
+        }
+    }
+    
 }

@@ -39,10 +39,15 @@
                             <f:selectItems value="#{estadosController.itemsAvailableSelectOne}"
                                            var="idEstadoItem"
                                            itemValue="#{idEstadoItem}"/>
+                            <p:ajax 
+                                event="change"
+                                update="idMunicipio"
+                                listener="#{direccionesController.ObtenerMunicipios(event)}"
+                                />
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateDireccionesLabel_idMunicipio}" for="idMunicipio" />
                         <p:selectOneMenu id="idMunicipio" value="#{direccionesController.selected.idMunicipio}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idMunicipio}">
-                            <f:selectItems value="#{municipiosController.itemsAvailableSelectOne}"
+                            <f:selectItems value="#{direccionesController.listMunicipios}"
                                            var="idMunicipioItem"
                                            itemValue="#{idMunicipioItem}"/>
                         </p:selectOneMenu>

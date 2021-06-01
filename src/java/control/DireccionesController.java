@@ -17,6 +17,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.AjaxBehaviorEvent;
+import modelo.Municipios;
 
 @Named("direccionesController")
 @SessionScoped
@@ -24,9 +26,15 @@ public class DireccionesController implements Serializable {
 
     @EJB
     private control.DireccionesFacade ejbFacade;
+    
+    @EJB
+    private control.MunicipiosFacade ejbFacadeMunicipios;
+    
     private List<Direcciones> items = null;
     private List<Direcciones> items2 = null;
     private Direcciones selected;
+    
+    private List<Municipios> listMunicipios;
 
     public DireccionesController() {
     }
@@ -51,6 +59,14 @@ public class DireccionesController implements Serializable {
         this.selected = selected;
     }
 
+    public List<Municipios> getListMunicipios() {
+        return listMunicipios;
+    }
+
+    public void setListMunicipios(List<Municipios> listMunicipios) {
+        this.listMunicipios = listMunicipios;
+    }
+    
     protected void setEmbeddableKeys() {
     }
 
@@ -187,6 +203,11 @@ public class DireccionesController implements Serializable {
             }
         }
 
+    }
+    
+    public void ObtenerMunicipios(AjaxBehaviorEvent event){
+        System.out.println("id estado="+selected.getIdEstado().getId());
+        listMunicipios = ejbFacadeMunicipios.busquedaEstado(selected.getIdEstado().getId());
     }
 
 }
