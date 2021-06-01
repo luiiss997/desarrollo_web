@@ -11,7 +11,7 @@
         <p:dialog id="ModeloEditDlg" widgetVar="ModeloEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditModeloTitle}">
             <h:form id="ModeloEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{modeloController.selected != null}">
+                     <p:panelGrid columns="2" rendered="#{modeloController.selected != null}">
                         <p:outputLabel value="#{bundle.EditModeloLabel_id}" for="id" />
                         <p:inputText disabled="true" id="id" value="#{modeloController.selected.id}" title="#{bundle.EditModeloTitle_id}" required="true" requiredMessage="#{bundle.EditModeloRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.EditModeloLabel_nombre}" for="nombre" />
@@ -21,6 +21,13 @@
                             <f:selectItem itemLabel="-- Seleccionar --" itemValue=""/>
                             <f:selectItem itemLabel="Activo" itemValue="1"/>
                             <f:selectItem itemLabel="Eliminado" itemValue="0"/>
+                        </p:selectOneMenu> 
+                        <p:outputLabel value="#{bundle.EditModeloLabel_idCategoria}" for="idCategoria" />
+                        <p:selectOneMenu id="idCategoria" value="#{modeloController.selected.idCategoria}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{categoriasController.itemsAvailableSelectOne}"
+                                           var="idCategoriaItem"
+                                           itemValue="#{idCategoriaItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditModeloLabel_idMarca}" for="idMarca" />
                         <p:selectOneMenu id="idMarca" value="#{modeloController.selected.idMarca}" >
@@ -28,7 +35,7 @@
                             <f:selectItems value="#{marcaController.itemsAvailableSelectOne}"
                                            var="idMarcaItem"
                                            itemValue="#{idMarcaItem}"/>
-                        </p:selectOneMenu>
+                        </p:selectOneMenu>    
                     </p:panelGrid>
                     <p:commandButton actionListener="#{modeloController.update}" value="#{bundle.Save}" update="display,:ModeloListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ModeloEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ModeloEditDialog.hide()"/>

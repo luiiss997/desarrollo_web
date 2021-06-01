@@ -50,12 +50,18 @@
                             </f:facet>
                             <h:outputText value="#{item.idMarca.nombre}"/>
                         </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="idCategoria"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCategoria.nombre}"/>
+                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{modeloController.prepareCreate}" update=":ModeloCreateForm" oncomplete="PF('ModeloCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ModeloViewForm" oncomplete="PF('ModeloViewDialog').show()" disabled="#{empty modeloController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ModeloEditForm" oncomplete="PF('ModeloEditDialog').show()" disabled="#{empty modeloController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{modeloController.destroy}" update=":growl,datalist" disabled="#{empty modeloController.selected}"/>
-                            <h:link outcome="/modelo/Eliminados" value="Show All Modelos Deleted Items"/>
+                        <h:link outcome="/modelo/Eliminados" value="Show All Modelos Deleted Items"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

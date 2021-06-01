@@ -58,6 +58,9 @@ public class Modelo implements Serializable {
     @JoinColumn(name = "id_marca", referencedColumnName = "id")
     @ManyToOne
     private Marca idMarca;
+    @JoinColumn(name = "id_categoria", referencedColumnName = "id")
+    @ManyToOne
+    private Categorias idCategoria;
     @OneToMany(mappedBy = "idModelo")
     private Collection<Componentes> componentesCollection;
 
@@ -104,6 +107,14 @@ public class Modelo implements Serializable {
 
     public void setIdMarca(Marca idMarca) {
         this.idMarca = idMarca;
+    }
+
+    public Categorias getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(Categorias idCategoria) {
+        this.idCategoria = idCategoria;
     }
 
     @XmlTransient

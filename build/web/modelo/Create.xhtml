@@ -13,8 +13,14 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{modeloController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateModeloLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{modeloController.selected.nombre}" title="#{bundle.CreateModeloTitle_nombre}" required="true" requiredMessage="#{bundle.CreateModeloRequiredMessage_nombre}"/>
-                        <p:outputLabel value="#{bundle.CreateModeloLabel_idMarca}" for="idMarca" />
+                        <p:inputText id="nombre" value="#{modeloController.selected.nombre}" title="#{bundle.CreateModeloTitle_nombre}" required="true" requiredMessage="#{bundle.CreateModeloRequiredMessage_nombre}"/>                  
+                        <p:outputLabel value="#{bundle.CreateModeloLabel_idCategoria}" for="idCategoria" />
+                        <p:selectOneMenu id="idCategoria" value="#{modeloController.selected.idCategoria}" >
+                            <f:selectItems value="#{categoriasController.itemsAvailableSelectOne}"
+                                           var="idCategoriaItem"
+                                           itemValue="#{idCategoriaItem}"/>
+                        </p:selectOneMenu>
+                         <p:outputLabel value="#{bundle.CreateModeloLabel_idMarca}" for="idMarca" />
                         <p:selectOneMenu id="idMarca" value="#{modeloController.selected.idMarca}" >
                             <f:selectItems value="#{marcaController.itemsAvailableSelectOne}"
                                            var="idMarcaItem"

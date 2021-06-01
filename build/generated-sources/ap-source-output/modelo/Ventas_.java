@@ -10,7 +10,7 @@ import modelo.Envios;
 import modelo.TiposPago;
 import modelo.Usuarios;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2021-05-31T20:16:29")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2021-05-31T21:31:53")
 @StaticMetamodel(Ventas.class)
 public class Ventas_ { 
 
