@@ -17,6 +17,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.AjaxBehaviorEvent;
+import modelo.Marca;
+import modelo.Modelo;
 
 @Named("componentesController")
 @SessionScoped
@@ -27,7 +30,14 @@ public class ComponentesController implements Serializable {
     private List<Componentes> items = null;
     private List<Componentes> items2 = null;
     private Componentes selected;
-
+    
+    @EJB
+    private control.MarcaFacade ejbMarca;
+    @EJB
+    private control.ModeloFacade ejbModelo;
+    private List<Marca> listMarcas;
+    private List<Modelo> listModelos;
+    
     public ComponentesController() {
     }
 
@@ -61,6 +71,38 @@ public class ComponentesController implements Serializable {
         return ejbFacade;
     }
 
+    public MarcaFacade getEjbMarca() {
+        return ejbMarca;
+    }
+
+    public void setEjbMarca(MarcaFacade ejbMarca) {
+        this.ejbMarca = ejbMarca;
+    }
+
+    public ModeloFacade getEjbModelo() {
+        return ejbModelo;
+    }
+
+    public void setEjbModelo(ModeloFacade ejbModelo) {
+        this.ejbModelo = ejbModelo;
+    }
+
+    public List<Marca> getListMarcas() {
+        return listMarcas;
+    }
+
+    public void setListMarcas(List<Marca> listMarcas) {
+        this.listMarcas = listMarcas;
+    }
+
+    public List<Modelo> getListModelos() {
+        return listModelos;
+    }
+
+    public void setListModelos(List<Modelo> listModelos) {
+        this.listModelos = listModelos;
+    }
+    
     public Componentes prepareCreate() {
         selected = new Componentes();
         initializeEmbeddableKey();
@@ -187,6 +229,17 @@ public class ComponentesController implements Serializable {
             }
         }
 
+    }
+    
+    public void obtenerMarcas(AjaxBehaviorEvent event){
+        System.out.println("id categoria = "+selected.getIdCategoria().getId());
+        listMarcas=ejbMarca.busquedaCategorias(selected.getIdCategoria().getId()); 
+        listModelos=ejbModelo.busquedaMarcas(1, selected.getIdCategoria().getId());
+    }
+    
+     public void obtenerModelos(AjaxBehaviorEvent event){
+        System.out.println("id marca = "+selected.getIdMarca().getId());
+        listModelos=ejbModelo.busquedaMarcas(selected.getIdMarca().getId(), selected.getIdCategoria().getId());
     }
 
 }

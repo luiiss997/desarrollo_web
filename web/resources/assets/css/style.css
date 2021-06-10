@@ -209,6 +209,13 @@ a:focus {
   font-weight: bold;
 }
 
+.navbar-brand2 {
+  padding: 0;
+  margin: 0;
+  color: #666666;
+  font-size: 26px;
+}
+
 .navbar-brand span {
   color: #ffffff;
 }
@@ -808,5 +815,315 @@ a:focus {
 #login2 .container #login-row #login-column #login-box #login-form {
   padding: 20px;
 }
+
+.out_mensage{
+    color: red;
+    font: bold;
+}
+
+
+.contenedor_c {
+    margin: auto;
+     max-width: 1700px;
+}
+
+.column {
+     float: left;
+     padding: 10px;
+}
+
+.left {
+     width: 15%;
+}
+
+.right {
+     width: 85%;
+     position: relative;
+     min-height: 1px;
+     padding-right: 15px;
+     padding-left: 15px;
+}
+
+.products {
+     background: #f7f7f7;
+     padding: 40px;
+}
+
+.our_products {
+     background-color: #fff;
+}
+
+.our_products .product_box {
+     text-align: center;
+     margin-bottom: 30px;
+}
+
+.our_products .product_box figure {
+     margin: 0;
+}
+
+.our_products .product_box figure img {
+     margin: auto;
+     width: 280px;
+}
+
+.our_products .product_box h3 {
+     width: 200px;
+     color: #fff;
+     font-size: 20px;
+     line-height: 20px;
+     background-color: #252525;
+     font-weight: 500;
+     margin: 0 auto;
+     padding: 10px 0;
+     margin-top: 40px;
+     transition: ease-in all 0.2s;
+}
+
+.our_products .product_box h4 {
+     width: 150px;
+     color: #fff;
+     font-size: 15px;
+     line-height: 15px;
+     background-color: #666666;
+     font-weight: 400;
+     margin: 0 auto;
+     padding: 10px 0;
+     margin-top: 10px;
+     transition: ease-in all 0.2s;
+}
+
+.our_products .product_box h4:hover {
+     background: #f3c93e;
+     transition: ease-in all 0.2s;
+}
+
+.our_products .product_box h3:hover {
+     background: #f3c93e;
+     transition: ease-in all 0.2s;
+}
+
+.margin_bottom1 {
+     margin-bottom: 60px;
+}
+
+.our_products .read_more {
+     margin: 0 auto;
+     display: block;
+     margin-top: 50px;
+     background-color: transparent;
+     border: #48ca95 solid 2px;
+     color: #48ca95 !important;
+     max-width: 232px;
+     padding: 15px 0;
+}
+
+.our_products .read_more:hover {
+     background: #f3c93e;
+     color: #000 !important;
+}
+
+.precio {
+     color: #2453ff;
+}
+
+.articulo:hover {
+     color: #f3c93e;
+}
+
+/** acesorio **/
+
+.contenedor_d {
+     margin-top: 100px;
+     padding-top: 20px;
+     padding-right: 15px;
+     padding-left: 15px;
+     width: 100%;
+     display: flex;
+     flex-direction: row;
+     min-height: 100vh;
+}
+
+.columnas {
+     display: flex;
+     flex: 1;
+     width: 100%
+}
+
+.izquierda {
+     width: 15%;
+     order: 1;
+}
+
+.centro {
+     order: 2;
+     width: 30%;
+}
+
+.centro .product_box figure img {
+     margin: auto;
+     width: 460px;
+     border: 1px solid #f3c93e;
+}
+
+.derecha {
+     margin-top: 5px;
+     width: 60%;
+     order: 3;
+}
+
+.nombre {
+     font-size: 30px;
+}
+
+.caracteristicas {
+     font-size: 25px;
+     color: #666;
+}
+
+.precio-container {
+     border-bottom: 1px solid #b6b6b6;
+     border-top: 1px solid #b6b6b6;
+     margin-top: 10px;
+     margin-bottom: 10px;
+     padding-top: 10px;
+     padding-bottom: 10px;
+}
+
+.precio-container .precio {
+     font-weight: 600;
+}
+
+.imagenes_c {
+     margin-left: 30px;
+     display: flex;
+     flex-direction: row;
+}
+
+.imagenes_c .item {
+     margin: 10px;
+     border: 1px solid #f3c93e;
+}
+
+/** end accesorio **/
+
+/** continuar_compra **/
+
+.domicilo {
+     background: white;
+}
+
+.compra_formulario {
+     padding: 70px 50px;
+}
+
+.compra_formulario .datos {
+     border: #666 solid 2px;
+     padding: 0px 15px;
+     margin-bottom: 25px;
+     width: 100%;
+     height: 57px;
+     background: transparent;
+     color: #666;
+     font-size: 18px;
+     font-weight: normal;
+     border-radius: 10px;
+}
+
+.compra_formulario .textarea {
+     border: #666 solid 2px;
+     padding: 0px 15px;
+     margin-bottom: 25px;
+     width: 100%;
+     background: transparent;
+     color: #666;
+     font-size: 18px;
+     font-weight: normal;
+     padding-top: 36px;
+     height: 151px;
+}
+
+.confirmo_btn {
+     font-size: 18px;
+     transition: ease-in all 0.5s;
+     background-color: #f3c93e;
+     text-transform: uppercase;
+     color: #000;
+     padding: 15px 0px;
+     max-width: 226px;
+     width: 100%;
+     display: block;
+     margin-top: 30px !important;
+     margin: 0 auto;
+     border-radius: 40px;
+     font-weight: 500;
+}
+
+.confirmo_btn:hover {
+     background-color: #000;
+     transition: ease-in all 0.5s;
+     color: #fff;
+}
+
+.compra_formulario .datos:focus {
+     border: #004aad solid 2px;
+     background: none !important;
+     color: #004aad;
+}
+
+#peticion *::placeholder {
+     color: #666;
+     opacity: 1;
+}
+/** end continuar_compra **/
+.loader {
+     position: fixed;
+     left: 0px;
+     top: 0px;
+     width: 100%;
+     height: 100%;
+     z-index: 9999;
+     background: url('../images/loading-spinner.gif') 50% 50% no-repeat white;
+ }
+
+.modal-dialog .modal-content .texto_modal{
+     padding: 1em;
+}
+
+.datos_pago h4{
+     font-weight: normal;
+     position: relative;
+     padding: 0 0 0px 0;
+}
+
+
+/** shopping car **/
+
+.shopping {
+     padding: 60px;
+     background: #f7f7f7;
+}
+
+.box-shopping {
+     margin-left: 80px;
+     margin-right: 80px;
+}
+
+.box-shopping .text-right .btn {
+     margin-top: 20px;
+     margin-bottom: 20px;
+}
+
+.text-right {
+     padding-top: 40px;
+     padding-left: 80em;
+}
+
+.box-shopping .text-right .nav-link a {
+     background: darkcyan;
+     border: black 1px;
+}
+
+/** end shopping car **/
 
 /*# sourceMappingURL=style.css.map */

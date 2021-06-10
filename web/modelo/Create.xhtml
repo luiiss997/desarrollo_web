@@ -19,10 +19,15 @@
                             <f:selectItems value="#{categoriasController.itemsAvailableSelectOne}"
                                            var="idCategoriaItem"
                                            itemValue="#{idCategoriaItem}"/>
+                             <p:ajax 
+                                event="change"
+                                update="idMarca"
+                                listener="#{modeloController.obtenerMarcas(event)}"
+                                />
                         </p:selectOneMenu>
                          <p:outputLabel value="#{bundle.CreateModeloLabel_idMarca}" for="idMarca" />
                         <p:selectOneMenu id="idMarca" value="#{modeloController.selected.idMarca}" >
-                            <f:selectItems value="#{marcaController.itemsAvailableSelectOne}"
+                            <f:selectItems value="#{modeloController.listMarcas}"
                                            var="idMarcaItem"
                                            itemValue="#{idMarcaItem}"/>
                         </p:selectOneMenu>

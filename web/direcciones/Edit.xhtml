@@ -44,16 +44,21 @@
                                            itemValue="#{idUsuarioItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditDireccionesLabel_idEstado}" for="idEstado" />
-                        <p:selectOneMenu id="idEstado" value="#{direccionesController.selected.idEstado}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idEstado}">
+                        <p:selectOneMenu id="idEstado" value="#{direccionesController.selected.idEstado}" filter="true" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idEstado}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{estadosController.itemsAvailableSelectOne}"
                                            var="idEstadoItem"
                                            itemValue="#{idEstadoItem}"/>
+                             <p:ajax 
+                                event="change"
+                                update="idMunicipio"
+                                listener="#{direccionesController.ObtenerMunicipios(event)}"
+                                />
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditDireccionesLabel_idMunicipio}" for="idMunicipio" />
-                        <p:selectOneMenu id="idMunicipio" value="#{direccionesController.selected.idMunicipio}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idMunicipio}">
+                        <p:selectOneMenu id="idMunicipio" value="#{direccionesController.selected.idMunicipio}" filter="true" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idMunicipio}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{municipiosController.itemsAvailableSelectOne}"
+                            <f:selectItems value="#{direccionesController.listMunicipios}"
                                            var="idMunicipioItem"
                                            itemValue="#{idMunicipioItem}"/>
                         </p:selectOneMenu>

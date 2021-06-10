@@ -6,13 +6,13 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
+   <ui:composition template="/templeates/templeate_crud.xhtml">
+        <ui:define name="titulo_crud" >
             <f:event type="preRenderView" listener="#{login.verifySesionAndLevels(12)}"/>
-            <h:outputText value="Fotos Eliminadas"></h:outputText>
+            <h2>Lista de fotos de componentes eliminadas</h2>
         </ui:define>
 
-        <ui:define name="body">
+        <ui:define name="contenido_crud">
             <h:form id="FotosComponentesListForm">
                 <p:panel header="Fotos Eliminadas">
                     <p:dataTable id="datalist" value="#{fotosComponentesController.items2}" var="item"

@@ -17,6 +17,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.AjaxBehaviorEvent;
+import modelo.Marca;
 
 @Named("modeloController")
 @SessionScoped
@@ -27,6 +29,10 @@ public class ModeloController implements Serializable {
     private List<Modelo> items = null;
     private List<Modelo> items2 = null;
     private Modelo selected;
+    
+    @EJB
+    private control.MarcaFacade ejbMarca;
+    private List<Marca> listMarcas;
 
     public ModeloController() {
     }
@@ -47,6 +53,22 @@ public class ModeloController implements Serializable {
         return selected;
     }
 
+    public MarcaFacade getEjbMarca() {
+        return ejbMarca;
+    }
+
+    public void setEjbMarca(MarcaFacade ejbMarca) {
+        this.ejbMarca = ejbMarca;
+    }
+
+    public List<Marca> getListMarcas() {
+        return listMarcas;
+    }
+
+    public void setListMarcas(List<Marca> listMarcas) {
+        this.listMarcas = listMarcas;
+    }
+    
     public void setSelected(Modelo selected) {
         this.selected = selected;
     }
@@ -187,6 +209,11 @@ public class ModeloController implements Serializable {
             }
         }
 
+    }
+    
+    public void obtenerMarcas(AjaxBehaviorEvent event){
+        System.out.println("id cat= "+ selected.getIdCategoria().getId());
+        listMarcas=ejbMarca.busquedaCategorias(selected.getIdCategoria().getId());
     }
 
 }

@@ -30,17 +30,33 @@
                         <p:inputText id="colonia" value="#{proveedoresController.selected.colonia}" title="#{bundle.CreateProveedoresTitle_colonia}" required="true" requiredMessage="#{bundle.CreateProveedoresRequiredMessage_colonia}"/>
                         <p:outputLabel value="#{bundle.CreateProveedoresLabel_telefono}" for="telefono" />
                         <p:inputText id="telefono" value="#{proveedoresController.selected.telefono}" title="#{bundle.CreateProveedoresTitle_telefono}" required="true" requiredMessage="#{bundle.CreateProveedoresRequiredMessage_telefono}"/>
-                        <p:outputLabel value="#{bundle.CreateProveedoresLabel_idMunicipio}" for="idMunicipio" />
-                        <p:selectOneMenu id="idMunicipio" value="#{proveedoresController.selected.idMunicipio}" required="true" requiredMessage="#{bundle.EditProveedoresRequiredMessage_idMunicipio}">
-                            <f:selectItems value="#{municipiosController.itemsAvailableSelectOne}"
-                                           var="idMunicipioItem"
-                                           itemValue="#{idMunicipioItem}"/>
-                        </p:selectOneMenu>
+                        <p:outputLabel value="Pais: " for="idPais" />
+                        <p:selectOneMenu id="idPais" value="#{proveedoresController.pais}" required="true" requiredMessage="#{bundle.EditProveedoresRequiredMessage_idMunicipio}">
+                            <f:selectItems value="#{paisesController.itemsAvailableSelectOne}"
+                                           var="idPaisItem"
+                                           itemValue="#{idPaisItem}"/>
+                             <p:ajax 
+                                event="change"
+                                update="idEstado, idMunicipio"
+                                listener="#{proveedoresController.obtenerEstados(event)}"
+                                />
+                        </p:selectOneMenu>                       
                         <p:outputLabel value="#{bundle.CreateProveedoresLabel_idEstado}" for="idEstado" />
                         <p:selectOneMenu id="idEstado" value="#{proveedoresController.selected.idEstado}" required="true" requiredMessage="#{bundle.EditProveedoresRequiredMessage_idEstado}">
-                            <f:selectItems value="#{estadosController.itemsAvailableSelectOne}"
+                            <f:selectItems value="#{proveedoresController.listaEstados}"
                                            var="idEstadoItem"
                                            itemValue="#{idEstadoItem}"/>
+                            <p:ajax 
+                                event="change"
+                                update="idMunicipio"
+                                listener="#{proveedoresController.obtenerMunicipios(event)}"
+                                />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateProveedoresLabel_idMunicipio}" for="idMunicipio" />            
+                        <p:selectOneMenu id="idMunicipio" value="#{proveedoresController.selected.idMunicipio}" required="true" requiredMessage="#{bundle.EditProveedoresRequiredMessage_idMunicipio}">
+                            <f:selectItems value="#{proveedoresController.listaMunicipios}"
+                                           var="idMunicipioItem"
+                                           itemValue="#{idMunicipioItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{proveedoresController.create}" value="#{bundle.Save}" update="display,:ProveedoresListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProveedoresCreateDialog');"/>

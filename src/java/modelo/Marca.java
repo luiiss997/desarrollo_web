@@ -37,7 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Marca.findActive", query = "SELECT m FROM Marca m WHERE m.status = 1")
     , @NamedQuery(name = "Marca.findDelated", query = "SELECT m FROM Marca m WHERE m.status = 0")
     , @NamedQuery(name = "Marca.findByNombre", query = "SELECT m FROM Marca m WHERE m.nombre = :nombre")
-    , @NamedQuery(name = "Marca.findByStatus", query = "SELECT m FROM Marca m WHERE m.status = :status")})
+    , @NamedQuery(name = "Marca.findByStatus", query = "SELECT m FROM Marca m WHERE m.status = :status")
+    , @NamedQuery(name = "Marca.findByCategoria", query = "SELECT m FROM Marca m WHERE m.idCategoria.id = :idcategoria")})
 public class Marca implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -161,5 +162,5 @@ public class Marca implements Serializable {
     public String toString() {
         return nombre;
     }
-    
+
 }

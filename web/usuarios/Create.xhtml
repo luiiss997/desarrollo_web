@@ -19,7 +19,14 @@
                         <p:outputLabel value="#{bundle.CreateUsuariosLabel_apMat}" for="apMat" />
                         <p:inputText id="apMat" value="#{usuariosController.selected.apMat}" title="#{bundle.CreateUsuariosTitle_apMat}" required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_apMat}"/>
                         <p:outputLabel value="#{bundle.CreateUsuariosLabel_email}" for="email" />
-                        <p:inputText id="email" value="#{usuariosController.selected.email}" title="#{bundle.CreateUsuariosTitle_email}" required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_email}"/>
+                        <p:inputText id="email" value="#{usuariosController.selected.email}" title="#{bundle.CreateUsuariosTitle_email}" required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_email}" >
+                         <p:ajax 
+                                event="keyup"
+                                update="out"
+                                listener="#{usuariosController.verificaremail(event)}"
+                                />                    
+                        </p:inputText>
+                        
                         <p:outputLabel value="#{bundle.CreateUsuariosLabel_password}" for="password" />
                         <p:inputText id="password" value="#{usuariosController.selected.password}" title="#{bundle.CreateUsuariosTitle_password}" required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_password}"/>
                         <p:outputLabel value="#{bundle.CreateUsuariosLabel_idTipoUsu}" for="idTipoUsu" />
@@ -31,7 +38,8 @@
                     </p:panelGrid>
                     <p:commandButton actionListener="#{usuariosController.create}" value="#{bundle.Save}" update="display,:UsuariosListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuariosCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="UsuariosCreateDialog.hide()"/>
-                </h:panelGroup>
+                    <h:outputText id="out" class="out_mensage" value="#{usuariosController.mensaje}"/>
+                </h:panelGroup>              
             </h:form>
         </p:dialog>
 

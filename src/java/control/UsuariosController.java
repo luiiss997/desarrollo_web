@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
@@ -18,6 +20,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -31,6 +34,9 @@ public class UsuariosController implements Serializable {
     private List<Usuarios> items2 = null;
     private Usuarios selected;
     private String password2;
+
+    private String mensaje, mensaje2;
+    private boolean bnd = false, bnd2 = false;
 
     public UsuariosController() {
     }
@@ -55,6 +61,22 @@ public class UsuariosController implements Serializable {
         this.selected = selected;
     }
 
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public String getMensaje2() {
+        return mensaje2;
+    }
+
+    public void setMensaje2(String mensaje2) {
+        this.mensaje2 = mensaje2;
+    }
+
     public String getPassword2() {
         return password2;
     }
@@ -74,61 +96,117 @@ public class UsuariosController implements Serializable {
     }
 
     public Usuarios prepareCreate() {
+        mensaje = "";
         selected = new Usuarios();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void prepareCreate2() {
-        this.selected = new Usuarios();
+        mensaje = "";
+        mensaje2 = "";
+        initializeEmbeddableKey();
+        selected = new Usuarios();
+        selected.setPassword("");
     }
 
     public void create() {
-        selected.setStatus(1);
+        if (bnd) {
+            selected.setStatus(1);
 
-        String pwe = DigestUtils.sha1Hex(selected.getPassword());
-        selected.setPassword(pwe);
+            String pwe = DigestUtils.sha1Hex(selected.getPassword());
+            selected.setPassword(pwe);
 
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuariosCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuariosCreated"));
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje, null));
         }
     }
 
-    public void registrar() throws IOException { //Falta validar que el correo sea un correo xd
-        if (selected.getPassword().equals(password2)) {
-            Usuarios user = ejbFacade.buscarEmail(password2);
-            if (user == null) {
-                selected.setStatus(1);
+    public void registrar() throws IOException {
+        if (bnd && bnd2) {
+            selected.setStatus(1);
 
-                String pw = selected.getPassword();
-                String pwe = DigestUtils.sha1Hex(pw);
-                selected.setPassword(pwe);
+            String pw = selected.getPassword();
+            String pwe = DigestUtils.sha1Hex(pw);
+            selected.setPassword(pwe);
 
-                persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuariosCreated"));    
-                
-                HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuariosCreated"));
 
-                httpServletRequest.getSession().setAttribute("usuario", selected);
-                httpServletRequest.getSession().setAttribute("username", selected.getNombre());
-                httpServletRequest.getSession().setAttribute("correo", selected.getEmail());
-                httpServletRequest.getSession().setAttribute("nivel_usu", selected.getIdTipoUsu());
-                httpServletRequest.getSession().setAttribute("nombre_completo", selected.getNombre() + " " + selected.getApPat() + " " + selected.getApMat());
-                switch (selected.getIdTipoUsu().getNivel()) {
-                    case 1://Administrador
-                    case 2: //Supervisor                  
-                    case 3://Venta online
-                        FacesContext.getCurrentInstance().getExternalContext().redirect("empresa/home.xhtml");
-                        break;
-                    case 4://Cliente
-                        FacesContext.getCurrentInstance().getExternalContext().redirect("cliente/home.xhtml");
-                        break;
-                }
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ese correo ya esta registrado", null));
+            HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+
+            httpServletRequest.getSession().setAttribute("usuario", selected);
+            httpServletRequest.getSession().setAttribute("username", selected.getNombre());
+            httpServletRequest.getSession().setAttribute("correo", selected.getEmail());
+            httpServletRequest.getSession().setAttribute("nivel_usu", selected.getIdTipoUsu().getNivel());
+            httpServletRequest.getSession().setAttribute("nombre_completo", selected.getNombre() + " " + selected.getApPat() + " " + selected.getApMat());
+            switch (selected.getIdTipoUsu().getNivel()) {
+                case 1://Administrador
+                case 2: //Supervisor                  
+                case 3://Venta online
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("empresa/home.xhtml");
+                    break;
+                case 4://Cliente
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("cliente/home.xhtml");
+                    break;
             }
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Las contraseñas no coiciden", null));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Verifica los campos de registro", null));
+        }
+    }
+
+    public void verificaremail2(AjaxBehaviorEvent event) {
+        System.out.println("Email: " + selected.getEmail());
+        Pattern pattern = Pattern
+                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Matcher mather = pattern.matcher(selected.getEmail());
+
+        if (mather.find() == true) {
+            mensaje = "";
+            bnd = true;
+        } else {
+            mensaje = "Este no es un correo válido";
+            bnd = false;
+        }
+    }
+
+    public void verificarEmail(AjaxBehaviorEvent event) {
+        System.out.println("Email: " + selected.getEmail());
+        Pattern pattern = Pattern
+                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+
+        Matcher mather = pattern.matcher(selected.getEmail());
+
+        if (mather.find() == true) {
+            Usuarios correo = ejbFacade.buscarEmail(selected.getEmail());
+
+            if (correo != null) {
+                mensaje = "Este correo ya está registrado";
+                bnd = false;
+            } else {
+                mensaje = "";
+                bnd = true;
+            }
+        } else {
+            mensaje = "Este no es un correo válido";
+            bnd = false;
+        }
+    }
+
+    public void verificarPassword(AjaxBehaviorEvent event) {
+        System.out.println("Pass 1: " + selected.getPassword());
+        System.out.println("Pass 2: " + password2);
+        if (selected.getPassword().equals(password2)) {
+            mensaje2 = "";
+            bnd2 = true;
+        } else {
+            mensaje2 = "Las contraseñas no coiciden";
+            bnd2 = false;
         }
     }
 

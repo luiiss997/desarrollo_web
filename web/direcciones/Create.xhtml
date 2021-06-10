@@ -35,7 +35,7 @@
                                            itemValue="#{idUsuarioItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateDireccionesLabel_idEstado}" for="idEstado" />
-                        <p:selectOneMenu id="idEstado" value="#{direccionesController.selected.idEstado}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idEstado}">
+                        <p:selectOneMenu id="idEstado" value="#{direccionesController.selected.idEstado}" filter="true" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idEstado}">
                             <f:selectItems value="#{estadosController.itemsAvailableSelectOne}"
                                            var="idEstadoItem"
                                            itemValue="#{idEstadoItem}"/>
@@ -46,7 +46,7 @@
                                 />
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateDireccionesLabel_idMunicipio}" for="idMunicipio" />
-                        <p:selectOneMenu id="idMunicipio" value="#{direccionesController.selected.idMunicipio}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idMunicipio}">
+                        <p:selectOneMenu id="idMunicipio" value="#{direccionesController.selected.idMunicipio}" filter="true" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idMunicipio}">
                             <f:selectItems value="#{direccionesController.listMunicipios}"
                                            var="idMunicipioItem"
                                            itemValue="#{idMunicipioItem}"/>

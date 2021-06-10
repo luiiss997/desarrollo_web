@@ -28,11 +28,16 @@
                             <f:selectItems value="#{categoriasController.itemsAvailableSelectOne}"
                                            var="idCategoriaItem"
                                            itemValue="#{idCategoriaItem}"/>
+                             <p:ajax 
+                                event="change"
+                                update="idMarca"
+                                listener="#{modeloController.obtenerMarcas(event)}"
+                                />
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditModeloLabel_idMarca}" for="idMarca" />
                         <p:selectOneMenu id="idMarca" value="#{modeloController.selected.idMarca}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{marcaController.itemsAvailableSelectOne}"
+                            <f:selectItems value="#{modeloController.listMarcas}"
                                            var="idMarcaItem"
                                            itemValue="#{idMarcaItem}"/>
                         </p:selectOneMenu>    

@@ -3,6 +3,10 @@ package control;
 import modelo.FotosComponentes;
 import control.util.JsfUtil;
 import control.util.JsfUtil.PersistAction;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,10 +17,12 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.model.UploadedFile;
 
 @Named("fotosComponentesController")
 @SessionScoped
@@ -27,6 +33,9 @@ public class FotosComponentesController implements Serializable {
     private List<FotosComponentes> items = null;
     private List<FotosComponentes> items2 = null;
     private FotosComponentes selected;
+    
+    private UploadedFile file;
+    private String aux;
 
     public FotosComponentesController() {
     }
@@ -51,6 +60,22 @@ public class FotosComponentesController implements Serializable {
         this.selected = selected;
     }
 
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
+    public String getAux() {
+        return aux;
+    }
+
+    public void setAux(String aux) {
+        this.aux = aux;
+    }
+     
     protected void setEmbeddableKeys() {
     }
 
@@ -66,16 +91,45 @@ public class FotosComponentesController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-
+    
+    public void agregarFoto(){
+        if (getFile().getFileName().endsWith(".png") || getFile().getFileName().endsWith(".jpg")) {
+            if (subirFile()) {
+                create();
+                aux="";
+            }else{
+                System.out.println("Error al subir archivo");
+            }
+    
+        }else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El tipo de archivo no es el adecuado", null));
+        }
+    }
+    
+     public void modificarFoto(){
+        if (getFile().getFileName().endsWith(".png") || getFile().getFileName().endsWith(".jpg")) {
+            if (subirFile()) {
+                update();
+                aux="";
+            }else{
+                System.out.println("Error al subir archivo");
+            }
+        }else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El tipo de archivo no es el adecuado", null));
+        }
+    }
+    
     public void create() {
+        selected.setRuta(aux);
         selected.setStatus(1);
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("FotosComponentesCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+ 
     public void update() {
+        selected.setRuta(aux);
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("FotosComponentesUpdated"));
         items = null;
         items2 = null; 
@@ -187,6 +241,40 @@ public class FotosComponentesController implements Serializable {
             }
         }
 
+    }
+    
+     private boolean subirFile(){
+        try{
+            aux="/resources/img_componentes";
+            
+            File arch = new File(JsfUtil.getPath()+aux);
+            if (!arch.exists()) {
+                arch.mkdirs();
+            }
+            copiarArchivo(getFile().getFileName(), getFile().getInputstream());
+            return true;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            System.out.println("uuuupoooooooooooooooooooooooooooo");
+            return false;
+        }
+    }
+    
+    private void copiarArchivo(String nombre_arch, InputStream input){
+        try{
+            aux=aux+"/"+nombre_arch;          
+            OutputStream out = new FileOutputStream(new File(JsfUtil.getPath()+aux));
+            int read=0;
+            byte[] bytes = new byte[1024];
+            while ((read=input.read(bytes))!=-1) {                
+                out.write(bytes, 0, read);
+            }          
+            input.close();
+            out.flush();
+            out.close();
+        }catch (Exception ex){
+            JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("Error al salvar el archivo"));
+        }
     }
 
 }

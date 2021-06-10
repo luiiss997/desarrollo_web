@@ -6,6 +6,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
+import javax.servlet.ServletContext;
 
 public class JsfUtil {
 
@@ -65,5 +66,15 @@ public class JsfUtil {
         CREATE,
         DELETE,
         UPDATE
+    }
+    
+    public static String getPath(){
+        try{
+            ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+            return context.getRealPath("/");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 }

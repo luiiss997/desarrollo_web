@@ -57,19 +57,27 @@
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{categoriasController.itemsAvailableSelectOne}"
                                            var="idCategoriaItem"
-                                           itemValue="#{idCategoriaItem}"/>
+                                           itemValue="#{idCategoriaItem}"/><p:ajax 
+                                event="change"
+                                update="idMarca, idModelo"
+                                listener="#{componentesController.obtenerMarcas(event)}"
+                                />
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditComponentesLabel_idMarca}" for="idMarca" />
                         <p:selectOneMenu id="idMarca" value="#{componentesController.selected.idMarca}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{marcaController.itemsAvailableSelectOne}"
+                            <f:selectItems value="#{componentesController.listMarcas}"
                                            var="idMarcaItem"
-                                           itemValue="#{idMarcaItem}"/>
+                                           itemValue="#{idMarcaItem}"/><p:ajax 
+                                event="change"
+                                update="idModelo"
+                                listener="#{componentesController.obtenerModelos(event)}"
+                                />
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditComponentesLabel_idModelo}" for="idModelo" />
                         <p:selectOneMenu id="idModelo" value="#{componentesController.selected.idModelo}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{modeloController.itemsAvailableSelectOne}"
+                            <f:selectItems value="#{componentesController.listModelos}"
                                            var="idModeloItem"
                                            itemValue="#{idModeloItem}"/>
                         </p:selectOneMenu>

@@ -17,6 +17,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.AjaxBehaviorEvent;
+import modelo.Estados;
+import modelo.Municipios;
+import modelo.Paises;
 
 @Named("proveedoresController")
 @SessionScoped
@@ -27,7 +31,16 @@ public class ProveedoresController implements Serializable {
     private List<Proveedores> items = null;
     private List<Proveedores> items2 = null;
     private Proveedores selected;
-
+    
+    @EJB
+    private control.EstadosFacade ejbEstados;
+    @EJB
+    private control.MunicipiosFacade ejbFacadeMunicipios;
+       
+    private Paises pais;
+    private List<Estados> listaEstados;
+    private List<Municipios> listaMunicipios;
+    
     public ProveedoresController() {
     }
     
@@ -51,6 +64,30 @@ public class ProveedoresController implements Serializable {
         this.selected = selected;
     }
 
+    public Paises getPais() {
+        return pais;
+    }
+
+    public void setPais(Paises pais) {
+        this.pais = pais;
+    }
+
+    public List<Estados> getListaEstados() {
+        return listaEstados;
+    }
+
+    public void setListaEstados(List<Estados> listaEstados) {
+        this.listaEstados = listaEstados;
+    }
+
+    public List<Municipios> getListaMunicipios() {
+        return listaMunicipios;
+    }
+
+    public void setListaMunicipios(List<Municipios> listaMunicipios) {
+        this.listaMunicipios = listaMunicipios;
+    }
+    
     protected void setEmbeddableKeys() {
     }
 
@@ -187,6 +224,18 @@ public class ProveedoresController implements Serializable {
             }
         }
 
+    }
+    
+    
+    public void obtenerEstados(AjaxBehaviorEvent event){
+        System.out.println("id pais="+pais.getId());
+        listaEstados = ejbEstados.busquedaPais(pais.getId());
+        listaMunicipios = null;
+    }
+    
+    public void obtenerMunicipios(AjaxBehaviorEvent event){
+        System.out.println("id estado = "+selected.getIdEstado().getId());
+        listaMunicipios=ejbFacadeMunicipios.busquedaEstado(selected.getIdEstado().getId());
     }
 
 }

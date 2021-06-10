@@ -37,19 +37,19 @@
                                 <h:outputText value="#{bundle.ListFotosComponentesTitle_ruta}"/>
                             </f:facet>
                             <h:outputText value="#{item.ruta}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListFotosComponentesTitle_status}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.status}"/>
-                        </p:column>
+                        </p:column>                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListFotosComponentesTitle_idComponente}"/>
                             </f:facet>
                             <h:outputText value="#{item.idComponente.nombre}"/>
                         </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Foto: "/>
+                            </f:facet>
+                            <p:graphicImage width="250px" value="#{item.ruta}"/>
+                        </p:column>     
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{fotosComponentesController.prepareCreate}" update=":FotosComponentesCreateForm" oncomplete="PF('FotosComponentesCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":FotosComponentesViewForm" oncomplete="PF('FotosComponentesViewDialog').show()" disabled="#{empty fotosComponentesController.selected}"/>

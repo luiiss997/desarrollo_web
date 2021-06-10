@@ -51,4 +51,15 @@ public class EstadosFacade extends AbstractFacade<Estados> {
         }
     }
     
+     public List<Estados> busquedaPais(int idPais){
+        Query consulta = em.createNamedQuery("Estados.findByPais",Estados.class)
+                .setParameter("idPais", idPais);
+        List<Estados> lista = consulta.getResultList();
+        if(!lista.isEmpty()){
+            return lista;
+        }else{
+            return null;
+        }
+    }
+    
 }

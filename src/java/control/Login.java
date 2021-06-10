@@ -66,7 +66,7 @@ public class Login implements Serializable {
             httpServletRequest.getSession().setAttribute("usuario", usuario_auth);
             httpServletRequest.getSession().setAttribute("username", usuario_auth.getNombre());
             httpServletRequest.getSession().setAttribute("correo", usuario_auth.getEmail());
-            httpServletRequest.getSession().setAttribute("nivel_usu", usuario_auth.getIdTipoUsu());
+            httpServletRequest.getSession().setAttribute("nivel_usu", usuario_auth.getIdTipoUsu().getNivel());
             httpServletRequest.getSession().setAttribute("nombre_completo", usuario_auth.getNombre() + " " + usuario_auth.getApPat() + " " + usuario_auth.getApMat());
             switch (usuario_auth.getIdTipoUsu().getNivel()) {
                 case 1://Administrador

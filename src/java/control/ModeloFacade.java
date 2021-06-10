@@ -50,4 +50,16 @@ public class ModeloFacade extends AbstractFacade<Modelo> {
             return null;
         }
     }
+     
+     public List<Modelo> busquedaMarcas(int idMarca, int idcar){
+        Query consulta = em.createNamedQuery("Modelo.findByMarcayCategoria",Modelo.class)
+                .setParameter("idmarca", idMarca)
+                .setParameter("idcat", idcar);
+        List<Modelo> lista = consulta.getResultList();
+        if(!lista.isEmpty()){
+            return lista;
+        }else{
+            return null;
+        }
+    }
 }

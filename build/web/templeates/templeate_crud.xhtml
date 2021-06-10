@@ -55,7 +55,8 @@
                         <div class="user_option_box">
                             <a href="" class="account-link">
                                 <i class="fa fa-user" aria-hidden="true"></i>
-                                <span>                                
+                                <span>          
+                                     #{sessionScope.usuario.getIdTipoUsu().getNombre()}
                                     #{sessionScope.nombre_completo}
                                 </span>
                             </a>                         
@@ -92,24 +93,24 @@
                                         Cruds
                                     </a>
                                     <div class="dropdown-menu">
-                                        <h:link class="dropdown-item" outcome="/categorias/List" value="Categorias"/>
+                                        <h:link class="dropdown-item" outcome="/categorias/List" value="Categorias" rendered="#{sessionScope.nivel_usu == 1}"/>
                                         <h:link class="dropdown-item" outcome="/componentes/List" value="Componentes"/>
-                                        <h:link class="dropdown-item" outcome="/compras/List" value="Compras"/>
-                                        <h:link class="dropdown-item" outcome="/detalleCompra/List" value="Detalles Compras"/>
+                                        <h:link class="dropdown-item" outcome="/compras/List" value="Compras" rendered="#{sessionScope.nivel_usu == 1 or sessionScope.nivel_usu == 2}"/>
+                                        <h:link class="dropdown-item" outcome="/detalleCompra/List" value="Detalles Compras" rendered="#{sessionScope.nivel_usu == 1 or sessionScope.nivel_usu == 2}"/>
                                         <h:link class="dropdown-item" outcome="/detalleVenta/List" value="Detalles Ventas"/>
-                                        <h:link class="dropdown-item" outcome="/direcciones/List" value="Direcciones"/>
-                                        <h:link class="dropdown-item" outcome="/envios/List" value="Envios"/>
-                                        <h:link class="dropdown-item" outcome="/estados/List" value="Estados"/>
-                                        <h:link class="dropdown-item" outcome="/fotosComponentes/List" value="FotosComponentes"/>
-                                        <h:link class="dropdown-item" outcome="/marca/List" value="Marcas"/>
-                                        <h:link class="dropdown-item" outcome="/modelo/List" value="Modelos"/>
-                                        <h:link class="dropdown-item" outcome="/municipios/List" value="Municipios"/>
-                                        <h:link class="dropdown-item" outcome="/paises/List" value="Paises"/>
-                                        <h:link class="dropdown-item" outcome="/paqueteria/List" value="Paqueterias"/>
-                                        <h:link class="dropdown-item" outcome="/proveedores/List" value="Proveedores"/>
-                                        <h:link class="dropdown-item" outcome="/tiposPago/List" value="Tipos de Pago"/>
-                                        <h:link class="dropdown-item" outcome="/tiposUsuario/List" value="Tipos de Usuario"/>
-                                        <h:link class="dropdown-item" outcome="/usuarios/List" value="Usuarios"/>
+                                        <h:link class="dropdown-item" outcome="/direcciones/List" value="Direcciones" rendered="#{sessionScope.nivel_usu == 1 or sessionScope.nivel_usu == 3}"/>
+                                        <h:link class="dropdown-item" outcome="/envios/List" value="Envios" rendered="#{sessionScope.nivel_usu == 1 or sessionScope.nivel_usu == 3}"/>
+                                        <h:link class="dropdown-item" outcome="/estados/List" value="Estados" rendered="#{sessionScope.nivel_usu == 1}"/>
+                                        <h:link class="dropdown-item" outcome="/fotosComponentes/List" value="FotosComponentes" rendered="#{sessionScope.nivel_usu == 1 or sessionScope.nivel_usu == 2}"/>
+                                        <h:link class="dropdown-item" outcome="/marca/List" value="Marcas" rendered="#{sessionScope.nivel_usu == 1 or sessionScope.nivel_usu == 2}"/>
+                                        <h:link class="dropdown-item" outcome="/modelo/List" value="Modelos" rendered="#{sessionScope.nivel_usu == 1 or sessionScope.nivel_usu == 2}"/>
+                                        <h:link class="dropdown-item" outcome="/municipios/List" value="Municipios" rendered="#{sessionScope.nivel_usu == 1}"/>
+                                        <h:link class="dropdown-item" outcome="/paises/List" value="Paises" rendered="#{sessionScope.nivel_usu == 1}"/>
+                                        <h:link class="dropdown-item" outcome="/paqueteria/List" value="Paqueterias" rendered="#{sessionScope.nivel_usu == 1 or sessionScope.nivel_usu == 3}"/>
+                                        <h:link class="dropdown-item" outcome="/proveedores/List" value="Proveedores" rendered="#{sessionScope.nivel_usu == 1 or sessionScope.nivel_usu == 2}"/>
+                                        <h:link class="dropdown-item" outcome="/tiposPago/List" value="Tipos de Pago" rendered="#{sessionScope.nivel_usu == 1}"/>
+                                        <h:link class="dropdown-item" outcome="/tiposUsuario/List" value="Tipos de Usuario" rendered="#{sessionScope.nivel_usu == 1}"/>
+                                        <h:link class="dropdown-item" outcome="/usuarios/List" value="Usuarios" rendered="#{sessionScope.nivel_usu == 1}"/>
                                         <h:link class="dropdown-item" outcome="/ventas/List" value="Ventas"/>
                                     </div>
                                 </li>

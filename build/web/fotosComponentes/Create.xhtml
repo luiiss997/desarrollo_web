@@ -9,11 +9,11 @@
     <ui:composition>
 
         <p:dialog id="FotosComponentesCreateDlg" widgetVar="FotosComponentesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateFotosComponentesTitle}">
-            <h:form id="FotosComponentesCreateForm">
+            <h:form id="FotosComponentesCreateForm" enctype="multipart/form-data">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{fotosComponentesController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateFotosComponentesLabel_ruta}" for="ruta" />
-                        <p:inputText id="ruta" value="#{fotosComponentesController.selected.ruta}" title="#{bundle.CreateFotosComponentesTitle_ruta}" required="true" requiredMessage="#{bundle.CreateFotosComponentesRequiredMessage_ruta}"/>
+                        <p:outputLabel value="Subir Imagen: " for="imagen" />
+                        <p:fileUpload id="imagen" value="#{fotosComponentesController.file}" required="true" requiredMessage="El archivo es obligatorio" mode="simple" allowTypes="/(\.|\/)(png|jpg)$/1"/>                     
                         <p:outputLabel value="#{bundle.CreateFotosComponentesLabel_idComponente}" for="idComponente" />
                         <p:selectOneMenu id="idComponente" value="#{fotosComponentesController.selected.idComponente}" >
                             <f:selectItems value="#{componentesController.itemsAvailableSelectOne}"
@@ -21,7 +21,9 @@
                                            itemValue="#{idComponenteItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{fotosComponentesController.create}" value="#{bundle.Save}" update="display,:FotosComponentesListForm:datalist,:growl" oncomplete="handleSubmit(args,'FotosComponentesCreateDialog');"/>
+                    <p:inputText id="aux" value="#{fotosComponentesController.aux}" type="hidden" />
+                    <p:commandButton actionListener="#{fotosComponentesController.agregarFoto()}" value="Subir Foto" ajax="false"
+                                     update="display,:FotosComponentesListForm:datalist,:growl" oncomplete="handleSubmit(args,'EstadosCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="FotosComponentesCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
