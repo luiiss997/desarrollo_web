@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/templeates/templeate_cliente.xhtml">
@@ -20,52 +21,82 @@
                             </div>
                         </div>
                     </div>
-
+                    #{direccionesController.prepararParaCrear()}
                     <div class="row">
                         <div class="domicilo col-md-8">
-                            <div class="col-md-10">
-                                <form id="peticion" class="compra_formulario">
-                                    <div class="row">
-                                        <div class="col-md-12 ">
-                                            <input class="datos" placeholder="Nombre y Apellidos" type="type" name="Name"/>
-                                        </div>
+                            <div class="col-md-10">                               
+                                <h:form id="DireccionesCreateForm" class="compra_formulario">
+                                    <div class="row">                                       
                                         <div class="col-md-12">
-                                            <input class="datos" placeholder="Código Postal" type="type" name="Postal"/>
+                                            <p:outputLabel value="#{bundle.CreateDireccionesLabel_codigoPostal}" for="codigoPostal" />
+                                            <p:inputText class="datos" placeholder="00000" id="codigoPostal" value="#{direccionesController.selected.codigoPostal}"
+                                                         title="#{bundle.CreateDireccionesTitle_codigoPostal}" required="true" requiredMessage="#{bundle.CreateDireccionesRequiredMessage_codigoPostal}"/>
                                         </div>
                                         <div class="form-row col-md-12">
                                             <div class="col">
-                                                <input class="datos" placeholder="Estado" type="type" name="Name"/>
+                                                <p:outputLabel value="#{bundle.CreateDireccionesLabel_idEstado}" for="idEstado" />
+                                                <p:selectOneMenu class="datos2" id="idEstado" value="#{direccionesController.selected.idEstado}" 
+                                                                 required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idEstado}">
+                                                    <f:selectItems value="#{estadosController.itemsMexico}"
+                                                                   var="idEstadoItem"
+                                                                   itemValue="#{idEstadoItem}"/>
+                                                    <p:ajax 
+                                                        event="change"
+                                                        update="idMunicipio"
+                                                        listener="#{direccionesController.ObtenerMunicipios(event)}"
+                                                        />
+                                                </p:selectOneMenu>
                                             </div>
                                             <div class="col">
-                                                <input class="datos" placeholder="Delegación / Municipio" type="type" name="Name"/>
+                                                <p:outputLabel value="#{bundle.CreateDireccionesLabel_idMunicipio}" for="idMunicipio"/>                                         
+                                                <p:selectOneMenu class="datos2" id="idMunicipio" value="#{direccionesController.selected.idMunicipio}" 
+                                                                 filter="true" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idMunicipio}">
+                                                    <f:selectItems value="#{direccionesController.listMunicipios}"
+                                                                   var="idMunicipioItem"
+                                                                   itemValue="#{idMunicipioItem}"/>
+                                                </p:selectOneMenu>
                                             </div>
                                         </div>
-                                        <div class="col-md-12 ">
-                                            <input class="datos" placeholder="Colonia" type="type" name="Name"/>
+                                        <div class="col-md-12">
+                                            <p:outputLabel value="#{bundle.CreateDireccionesLabel_colonia}" for="colonia" />
+                                            <p:inputText class="datos" id="colonia" value="#{direccionesController.selected.colonia}" placeholder="Colonia o Delegación"
+                                                         title="#{bundle.CreateDireccionesTitle_colonia}" required="true" requiredMessage="#{bundle.CreateDireccionesRequiredMessage_colonia}"/>
                                         </div>
-                                        <div class="col-md-12 ">
-                                            <input class="datos" placeholder="Calle" type="type" name="Name"/>
+                                        <div class="col-md-12">
+                                            <p:outputLabel value="#{bundle.CreateDireccionesLabel_calle}" for="calle" />
+                                            <p:inputText class="datos" id="calle" value="#{direccionesController.selected.calle}" title="#{bundle.CreateDireccionesTitle_calle}" placeholder="Calle"
+                                                         required="true" requiredMessage="#{bundle.CreateDireccionesRequiredMessage_calle}"/>
                                         </div>
-                                        <div class="col-md-12 ">
-                                            <input class="datos" placeholder="No. Interior" type="type" name="Name"/>
+                                        <div class="col-md-12">
+                                            <p:outputLabel value="#{bundle.CreateDireccionesLabel_noExterior}" for="noExterior" />
+                                            <p:inputText class="datos" id="noExterior" value="#{direccionesController.selected.noExterior}" title="#{bundle.CreateDireccionesTitle_noExterior}"  placeholder="Número Exterior"
+                                                         required="true" requiredMessage="#{bundle.CreateDireccionesRequiredMessage_noExterior}"/>
                                         </div>
-                                        <div class="col-md-12 ">
-                                            <input class="datos" placeholder="No. Exterior" type="type" name="Name"/>
+                                        <div class="col-md-12">
+                                            <p:outputLabel value="#{bundle.CreateDireccionesLabel_noInterior}" for="noInterior" />
+                                            <p:inputText class="datos" id="noInterior" value="#{direccionesController.selected.noInterior}" title="#{bundle.CreateDireccionesTitle_noInterior}" required="true"  placeholder="Número Interior"
+                                                         requiredMessage="#{bundle.CreateDireccionesRequiredMessage_noInterior}"/>
                                         </div>
-                                        <div class="col-md-12 ">
-                                            <input class="datos" placeholder="Entre Calle" type="type" name="Name"/>
+                                        <div class="col-md-12">
+                                            <p:outputLabel value="#{bundle.CreateDireccionesLabel_calle1}" for="calle1" />
+                                            <p:inputText class="datos" id="calle1" value="#{direccionesController.selected.calle1}" title="#{bundle.CreateDireccionesTitle_calle1}"  placeholder="Entre la calle"
+                                                         required="true" requiredMessage="#{bundle.CreateDireccionesRequiredMessage_calle1}"/>
                                         </div>
-                                        <div class="col-md-12 ">
-                                            <input class="datos" placeholder="Y Calle" type="type" name="Name"/>
+                                        <div class="col-md-12">
+                                            <p:outputLabel value="#{bundle.CreateDireccionesLabel_calle2}" for="calle2" />
+                                            <p:inputText class="datos" id="calle2" value="#{direccionesController.selected.calle2}" title="#{bundle.CreateDireccionesTitle_calle2}" placeholder="Y la calle"
+                                                         required="true" requiredMessage="#{bundle.CreateDireccionesRequiredMessage_calle2}"/>
                                         </div>
-                                        <div class="col-md-12 ">
-                                            <input class="datos" placeholder="Teléfono de Contacto" type="type" name="Name"/>
+                                        <div class="col-md-12">
+                                            <p:outputLabel value="#{bundle.CreateDireccionesLabel_telefono}" for="telefono" />
+                                            <p:inputText class="datos" id="telefono" value="#{direccionesController.selected.telefono}" title="#{bundle.CreateDireccionesTitle_telefono}" placeholder="Teléfono de contacto"
+                                                         required="true" requiredMessage="#{bundle.CreateDireccionesRequiredMessage_telefono}"/>
                                         </div>
                                         <div class="col-md-12">
                                             <h:link class="nav-link" outcome="/views/cliente/continuar_compra2"><button type="button" class="btn btn btn-info text-bold">Continuar</button></h:link>                                           
                                         </div>
                                     </div>
-                                </form>
+                                </h:form>
                             </div>
                         </div>
 
@@ -79,8 +110,8 @@
                                             <td id="subtotal">$1,500.00</td>
                                         </tr>
                                         <tr>
-                                            <th>Envío</th>
-                                            <td>$100.00</td>
+                                            <th>Paqueteria</th>
+                                            <td> $150.00 </td>
                                         </tr>
                                         <tr>
                                             <th>Total</th>

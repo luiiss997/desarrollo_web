@@ -76,6 +76,10 @@ public class DireccionesController implements Serializable {
     private DireccionesFacade getFacade() {
         return ejbFacade;
     }
+    
+    public void prepararParaCrear() {
+        selected = new Direcciones();     
+    }
 
     public Direcciones prepareCreate() {
         selected = new Direcciones();
@@ -209,5 +213,9 @@ public class DireccionesController implements Serializable {
         System.out.println("id estado="+selected.getIdEstado().getId());
         listMunicipios = ejbFacadeMunicipios.busquedaEstado(selected.getIdEstado().getId());
     }
+    
+    public void buscarDirecciones(int iduser){
+        selected=ejbFacade.buscaDireccion(iduser);
+    } 
 
 }

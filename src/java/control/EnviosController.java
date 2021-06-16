@@ -60,6 +60,10 @@ public class EnviosController implements Serializable {
     private EnviosFacade getFacade() {
         return ejbFacade;
     }
+    
+    public void prepararParaCrear() {
+        selected = new Envios();
+    }
 
     public Envios prepareCreate() {
         selected = new Envios();

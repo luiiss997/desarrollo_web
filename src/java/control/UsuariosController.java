@@ -40,7 +40,7 @@ public class UsuariosController implements Serializable {
 
     public UsuariosController() {
     }
-
+    
     public List<Usuarios> getItems2() {
         if (items2 == null) {
             // items = getFacade().findAll();
@@ -95,37 +95,6 @@ public class UsuariosController implements Serializable {
         return ejbFacade;
     }
 
-    public Usuarios prepareCreate() {
-        mensaje = "";
-        selected = new Usuarios();
-        initializeEmbeddableKey();
-        return selected;
-    }
-
-    public void prepareCreate2() {
-        mensaje = "";
-        mensaje2 = "";
-        initializeEmbeddableKey();
-        selected = new Usuarios();
-        selected.setPassword("");
-    }
-
-    public void create() {
-        if (bnd) {
-            selected.setStatus(1);
-
-            String pwe = DigestUtils.sha1Hex(selected.getPassword());
-            selected.setPassword(pwe);
-
-            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuariosCreated"));
-            if (!JsfUtil.isValidationFailed()) {
-                items = null;    // Invalidate list of items to trigger re-query.
-            }
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje, null));
-        }
-    }
-
     public void registrar() throws IOException {
         if (bnd && bnd2) {
             selected.setStatus(1);
@@ -160,12 +129,7 @@ public class UsuariosController implements Serializable {
 
     public void verificaremail2(AjaxBehaviorEvent event) {
         System.out.println("Email: " + selected.getEmail());
-        Pattern pattern = Pattern
-                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-        Matcher mather = pattern.matcher(selected.getEmail());
-
-        if (mather.find() == true) {
+        if (veryfyEmail(selected.getEmail())) {
             mensaje = "";
             bnd = true;
         } else {
@@ -176,13 +140,7 @@ public class UsuariosController implements Serializable {
 
     public void verificarEmail(AjaxBehaviorEvent event) {
         System.out.println("Email: " + selected.getEmail());
-        Pattern pattern = Pattern
-                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-
-        Matcher mather = pattern.matcher(selected.getEmail());
-
-        if (mather.find() == true) {
+        if (veryfyEmail(selected.getEmail())) {
             Usuarios correo = ejbFacade.buscarEmail(selected.getEmail());
 
             if (correo != null) {
@@ -210,13 +168,58 @@ public class UsuariosController implements Serializable {
         }
     }
 
-    public void update() {
-        String pwe = DigestUtils.sha1Hex(selected.getPassword());
-        selected.setPassword(pwe);
+    public Usuarios prepareCreate() {
+        mensaje = "";
+        selected = new Usuarios();
+        initializeEmbeddableKey();
+        return selected;
+    }
 
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuariosUpdated"));
-        items = null;
-        items2 = null;
+    public void prepareCreate2() {
+        mensaje = "";
+        mensaje2 = "";
+        initializeEmbeddableKey();
+        selected = new Usuarios();
+        selected.setPassword("");
+    }
+
+    public void create() {
+        if (bnd) {
+            selected.setStatus(1);
+
+            String pwe = DigestUtils.sha1Hex(selected.getPassword());
+            selected.setPassword(pwe);
+
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuariosCreated"));
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje, null));
+        }
+    }
+
+    public void update() {     
+        if (veryfyEmail(selected.getEmail())) {
+            String pwe = DigestUtils.sha1Hex(selected.getPassword());
+            selected.setPassword(pwe);
+
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuariosUpdated"));
+            items = null;
+            items2 = null;
+        } else {
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El correo no es valido", null));
+        }       
+    }
+    
+    public void actualizar() {     
+        if (veryfyEmail(selected.getEmail())) {          
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuariosUpdated"));
+            items = null;
+            items2 = null;
+        } else {
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El correo no es valido", null));
+        }       
     }
 
     public void destroy() {
@@ -324,7 +327,15 @@ public class UsuariosController implements Serializable {
                 return null;
             }
         }
-
+    }
+    
+    
+    public boolean veryfyEmail(String correo){
+        Pattern pattern = Pattern
+                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Matcher mather = pattern.matcher(correo);
+        return mather.find();      
     }
 
 }

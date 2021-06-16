@@ -147,6 +147,10 @@ public class EstadosController implements Serializable {
     public List<Estados> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
+    
+    public List<Estados> getItemsMexico() {
+        return getFacade().busquedaPais(4);
+    }
 
     @FacesConverter(forClass = Estados.class)
     public static class EstadosControllerConverter implements Converter {

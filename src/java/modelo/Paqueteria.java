@@ -138,7 +138,7 @@ public class Paqueteria implements Serializable {
 
     @Override
     public String toString() {
-        return nombre;
+        return  nombre +" $"+precioEnvio;
     }
     
 }

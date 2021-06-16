@@ -44,7 +44,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Direcciones.findByCalle1", query = "SELECT d FROM Direcciones d WHERE d.calle1 = :calle1")
     , @NamedQuery(name = "Direcciones.findByCalle2", query = "SELECT d FROM Direcciones d WHERE d.calle2 = :calle2")
     , @NamedQuery(name = "Direcciones.findByTelefono", query = "SELECT d FROM Direcciones d WHERE d.telefono = :telefono")
-    , @NamedQuery(name = "Direcciones.findByStatus", query = "SELECT d FROM Direcciones d WHERE d.status = :status")})
+    , @NamedQuery(name = "Direcciones.findByStatus", query = "SELECT d FROM Direcciones d WHERE d.status = :status")
+    , @NamedQuery(name = "Direcciones.findByIdUser", query = "SELECT d FROM Direcciones d WHERE d.idUsuario.id = :idusuario")})
 public class Direcciones implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -262,7 +263,7 @@ public class Direcciones implements Serializable {
 
     @Override
     public String toString() {
-        return "ID de la direccion: "+id;
+        return "ID de la direccion: " + id;
     }
-    
+
 }

@@ -3,12 +3,178 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/templeates/templeate_cliente.xhtml">
         <ui:define name="contenido_principal">
 
-           
+
+            <div class="shopping">
+                <div class="contenedor">
+                    <div class="contenedor_c">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="titlepage text-center">
+                                    <h2>Mi Perfil</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="domicilo col">                  
+                        <div class="col-md-12">
+                            #{usuariosController.setSelected(sessionScope.usuario)}
+                            <div class="row">                                      
+                                <h:form id="UsuariosEditForm" class="mi_perfil_form">
+                                    <h4>Datos Personales</h4>
+                                    <br/>
+                                    <div class="col">
+                                        <label><span class="hidden-xs">Nombre</span> </label>                              
+                                        <p:inputText id="nombre" class="datos" value="#{usuariosController.selected.nombre}" title="#{bundle.EditUsuariosTitle_nombre}" 
+                                                     required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_nombre}"/>
+                                    </div>  
+                                    <div class="col">
+                                        <label><span class="hidden-xs">Apellido Paterno</span> </label>
+                                        <p:inputText id="apPat" class="datos" value="#{usuariosController.selected.apPat}" title="#{bundle.EditUsuariosTitle_apPat}" 
+                                                     required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_apPat}"/>
+                                    </div>  
+                                    <div class="col">
+                                        <label><span class="hidden-xs">Apellido Materno</span> </label>
+                                        <p:inputText id="apMat" class="datos" value="#{usuariosController.selected.apMat}" title="#{bundle.EditUsuariosTitle_apMat}"
+                                                     required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_apMat}"/>
+                                    </div>  
+                                    <div class="col">
+                                        <label><span class="hidden-xs">Correo</span> </label>
+                                        <p:inputText id="email" class="datos" value="#{usuariosController.selected.email}" title="#{bundle.EditUsuariosTitle_email}" 
+                                                     required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_email}">
+                                            <p:ajax 
+                                                event="keyup"
+                                                update="out"
+                                                listener="#{usuariosController.verificaremail2(event)}"/>   
+                                        </p:inputText> 
+                                        <h:outputText id="out" class="out_mensage" value="#{usuariosController.mensaje}"/>
+                                    </div>
+                                    <p:commandButton class="btn btn btn-info text-bold" actionListener="#{usuariosController.actualizar()}" value="Actualizar" update=":growl"/>
+                                </h:form>                                                                                                                                                                  
+                            </div>                                     
+                        </div>
+                        <hr/>               
+                        <div class="col-md-12">  
+                            #{direccionesController.buscarDirecciones(sessionScope.usuario.id)}
+                            <div class="row">
+                                <h:form id="DireccionesEditForm" class="mi_perfil_form">                         
+                                    <h4>Datos de Envío</h4>
+                                    <br/>
+                                    <div class="col">
+                                        <label><span class="hidden-xs">Calle</span> </label>
+                                        <p:inputText id="calle" class="datos" value="#{direccionesController.selected.calle}" title="#{bundle.EditDireccionesTitle_calle}" 
+                                                     required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_calle}"/>
+                                    </div> 
+                                    <div class="col">
+                                        <label><span class="hidden-xs">Entre Calle</span> </label>
+                                        <p:inputText id="calle1" class="datos" value="#{direccionesController.selected.calle1}" title="#{bundle.EditDireccionesTitle_calle1}" 
+                                                     required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_calle1}"/>
+                                    </div>
+                                    <div class="col">
+                                        <label><span class="hidden-xs">Y Calle</span> </label>
+                                        <p:inputText id="calle2" class="datos" value="#{direccionesController.selected.calle2}" title="#{bundle.EditDireccionesTitle_calle2}" 
+                                                     required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_calle2}"/>
+                                    </div>
+                                    <div class="col">
+                                        <label><span class="hidden-xs">Numero Exterior</span> </label>
+                                        <p:inputText id="noExterior" class="datos" value="#{direccionesController.selected.noExterior}" title="#{bundle.EditDireccionesTitle_noExterior}" 
+                                                     required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_noExterior}"/>
+                                    </div>
+                                    <div class="col">
+                                        <label><span class="hidden-xs">Numero Interior</span> </label>
+                                        <p:inputText id="noInterior" class="datos" value="#{direccionesController.selected.noInterior}" title="#{bundle.EditDireccionesTitle_noInterior}" 
+                                                     required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_noInterior}"/>
+                                    </div> 
+                                    <div class="col">
+                                        <label><span class="hidden-xs">Código Postal</span> </label>
+                                        <p:inputText id="codigoPostal" class="datos" value="#{direccionesController.selected.codigoPostal}" title="#{bundle.EditDireccionesTitle_codigoPostal}"
+                                                     required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_codigoPostal}"/>
+                                    </div>  
+                                    <div class="col">
+                                        <label><span class="hidden-xs">Estado</span> </label>
+                                        <p:selectOneMenu id="idEstado" value="#{direccionesController.selected.idEstado}" filter="true" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idEstado}">
+                                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                            <f:selectItems value="#{estadosController.itemsAvailableSelectOne}"
+                                                           var="idEstadoItem"
+                                                           itemValue="#{idEstadoItem}"/>
+                                            <p:ajax 
+                                                event="change"
+                                                update="idMunicipio"
+                                                listener="#{direccionesController.ObtenerMunicipios(event)}"
+                                                />
+                                        </p:selectOneMenu>
+                                    </div> 
+                                    <br/>
+                                    <div class="col">
+                                        <label><span class="hidden-xs">Municipio</span> </label>
+                                        <p:selectOneMenu id="idMunicipio" value="#{direccionesController.selected.idMunicipio}" filter="true" 
+                                                         required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idMunicipio}">
+                                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                            <f:selectItems value="#{direccionesController.listMunicipios}"
+                                                           var="idMunicipioItem"
+                                                           itemValue="#{idMunicipioItem}"/>
+                                        </p:selectOneMenu>
+                                    </div>                                  
+                                    <div class="col">                                     
+                                        <label><span class="hidden-xs">Colonia</span> </label>
+                                        <p:inputText id="colonia" class="datos" value="#{direccionesController.selected.colonia}" title="#{bundle.EditDireccionesTitle_colonia}" 
+                                                     required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_colonia}"/>
+                                    </div>
+                                    <div class="col">
+                                        <label><span class="hidden-xs">Teléfono</span> </label>
+                                        <p:inputText id="telefono" class="datos" value="#{direccionesController.selected.telefono}" title="#{bundle.EditDireccionesTitle_telefono}" 
+                                                     required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_telefono}"/>
+                                    </div>                                   
+                                    <p:commandButton actionListener="#{direccionesController.update}" class="btn btn btn-info text-bold" value="Actualizar" update=":growl"/>
+                                </h:form>                                                                                                                                                                
+                            </div>                                     
+                        </div>
+                        <hr/>              
+                        <div class="col-md-12"> 
+                            <div class="text-center">
+                                <h4>Compras Realizadas</h4>
+                            </div>
+                            <div class="row">                              
+                                <div class="card-body" style="margin: auto;">
+                                    <table id="compras" class="table table-striped table-bordered" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Clave</th>
+                                                <th>Fecha</th>
+                                                <th>Total</th>
+                                                <th>Metodo de Pago</th>
+                                                <th>Opciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>748159263</td>
+                                                <td>11/03/2021</td>
+                                                <td>$1,000.00</td>
+                                                <td>Mercado Pago</td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        <button type="button" class="btn btn-outline-primary">Ver Detalles</button>
+                                                    </div>
+                                                </td>
+                                            </tr>                                  
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>                                                                                                                                                        
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
 
         </ui:define>
     </ui:composition>

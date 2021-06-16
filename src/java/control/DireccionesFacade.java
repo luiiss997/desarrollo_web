@@ -50,4 +50,15 @@ public class DireccionesFacade extends AbstractFacade<Direcciones> {
             return null;
         }
     }
+    
+    public Direcciones buscaDireccion(int id){
+       Query consulta = em.createNamedQuery("Direcciones.findByIdUser",Direcciones.class)
+               .setParameter("idusuario", id);
+        List<Direcciones> lista = consulta.getResultList();
+        if(!lista.isEmpty()){
+            return lista.get(0);
+        }else{
+            return null;
+        } 
+    }
 }

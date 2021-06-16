@@ -1,3 +1,84 @@
+/*--------------------------------------------------------------------- File Name: style.css ---------------------------------------------------------------------*/
+
+/*--------------------------------------------------------------------- import Fonts ---------------------------------------------------------------------*/
+
+@import url('https://fonts.googleapis.com/css?family=Rajdhani:300,400,500,600,700');
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+@import url('https://fonts.googleapis.com/css?family=Raleway:100,400,600,700,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Dosis:400,500,600,700,800&display=swap');
+/*****---------------------------------------- 1) font-family: 'Rajdhani', sans-serif;
+ 2) font-family: 'Poppins', sans-serif;
+ ----------------------------------------*****/
+
+/*--------------------------------------------------------------------- import Files ---------------------------------------------------------------------*/
+
+@import url(animate.min.css);
+@import url(normalize.css);
+@import url(icomoon.css);
+@import url(font-awesome.min.css);
+@import url(meanmenu.css);
+@import url(swiper.min.css);
+@import url(slick.css);
+@import url(jquery.fancybox.min.css);
+@import url(jquery-ui.css);
+@import url(nice-select.css);
+/*--------------------------------------------------------------------- skeleton ---------------------------------------------------------------------*/
+
+* {
+     box-sizing: border-box !important;
+}
+
+html {
+     scroll-behavior: smooth;
+}
+
+body {
+     color: #666666;
+     font-size: 14px;
+     font-family: 'Poppins', sans-serif;
+     line-height: 1.80857;
+     font-weight: normal;
+}
+
+a {
+     color: #1f1f1f;
+     text-decoration: none !important;
+     outline: none !important;
+     -webkit-transition: all .3s ease-in-out;
+     -moz-transition: all .3s ease-in-out;
+     -ms-transition: all .3s ease-in-out;
+     -o-transition: all .3s ease-in-out;
+     transition: all .3s ease-in-out;
+}
+
+h1, h2, h3, h4, h5, h6 {
+     letter-spacing: 0;
+     font-weight: normal;
+     position: relative;
+     padding: 0 0 10px 0;
+     font-weight: normal;
+     line-height: normal;
+     color: #111111;
+     margin: 0
+}
+
+h6 {   
+     color: #fff;
+}
+
+*, *::after, *::before {
+     -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+     box-sizing: border-box;
+}
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+     color: #212121;
+     text-decoration: none!important;
+     opacity: 1
+}
+
+
 body {
   font-family: 'Poppins', sans-serif;
   color: #0c0c0c;
@@ -300,6 +381,7 @@ a:focus {
 /*end header section*/
 /* slider section */
 .slider_section {
+    min-height: 462px;
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
@@ -1010,7 +1092,9 @@ a:focus {
 /** continuar_compra **/
 
 .domicilo {
-     background: white;
+    margin: auto;
+    background: white;
+    padding: 10px;
 }
 
 .compra_formulario {
@@ -1023,6 +1107,19 @@ a:focus {
      margin-bottom: 25px;
      width: 100%;
      height: 57px;
+     background: transparent;
+     color: #666;
+     font-size: 18px;
+     font-weight: normal;
+     border-radius: 10px;
+}
+
+.compra_formulario .datos2 {
+     border: #666 solid 2px;
+     padding: 0px 10px;
+     margin-bottom: 25px;
+     width: 100%;
+     height: 30px;
      background: transparent;
      color: #666;
      font-size: 18px;
@@ -1125,5 +1222,83 @@ a:focus {
 }
 
 /** end shopping car **/
+
+
+.text-bg {
+     text-align: left;
+}
+
+.text-bg h1 {
+     color: #fff;
+     font-size: 81px;
+     line-height: 80px;
+     padding-bottom: 45px;
+     font-weight: bold;
+}
+
+.text-bg span {
+     color: #fff;
+     font-size: 42px;
+     line-height: 50px;
+     font-weight: normal;
+     padding-bottom: 18px;
+     display: block;
+}
+
+.text-bg p {
+     line-height: 28px;
+     font-weight: 500;
+     padding-bottom: 60px;
+     display: block;
+}
+
+.text-bg figure img {
+     width: 100%;
+     padding-top: 40px;
+}
+
+.text_img {
+     margin-right: -130px;
+}
+
+.text_img figure {
+     margin: 0;
+}
+
+.text_img figure img {
+     width: 100%;
+}
+
+.text_img2 {
+     align-items: center;
+     margin-top: 20px;
+     margin-bottom: -50px;
+}
+
+.text_img2 figure img {
+     width: 100%;
+     display:block;
+     margin:auto;
+}
+
+
+.mi_perfil_form{ 
+    margin: auto;
+    padding: 10px 50px;
+    min-width: 980px;
+}
+
+.mi_perfil_form .datos {
+     border: #666 solid 2px;
+     padding: 0px 15px;
+     margin-bottom: 25px;
+     width: 100%;
+     height: 37px;
+     background: transparent;
+     color: #666;
+     font-size: 18px;
+     font-weight: normal;
+     border-radius: 10px;
+}
 
 /*# sourceMappingURL=style.css.map */
