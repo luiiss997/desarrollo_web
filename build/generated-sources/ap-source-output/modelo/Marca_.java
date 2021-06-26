@@ -9,7 +9,7 @@ import modelo.Componentes;
 import modelo.Modelo;
 import modelo.Proveedores;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2021-06-15T20:48:17")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2021-06-25T19:05:54")
 @StaticMetamodel(Marca.class)
 public class Marca_ { 
 

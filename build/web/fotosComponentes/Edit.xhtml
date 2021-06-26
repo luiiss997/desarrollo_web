@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundle.EditFotosComponentesLabel_id}" for="id" />
                         <p:inputText disabled="true" id="id" value="#{fotosComponentesController.selected.id}" title="#{bundle.EditFotosComponentesTitle_id}" required="true" requiredMessage="#{bundle.EditFotosComponentesRequiredMessage_id}"/>
                         <p:outputLabel value="Subir Imagen: " for="imagen" />
-                        <p:fileUpload id="imagen" value="#{fotosComponentesController.file}" required="true" requiredMessage="El archivo es obligatorio" mode="simple" allowTypes="/(\.|\/)(png|jpg)$/1"/>                                                                 
+                        <p:fileUpload id="imagen" value="#{fotosComponentesController.file}" required="true" requiredMessage="El archivo es obligatorio" mode="simple" allowTypes="/(\.|\/)(png|jpg|pdf)$/1"/>                                                                 
                         <p:outputLabel value="#{bundle.EditFotosComponentesLabel_status}" for="status" />
                         <p:selectOneMenu id="status" value="#{fotosComponentesController.selected.status}" required="true" requiredMessage="#{bundle.EditFotosComponentesRequiredMessage_status}">
                             <f:selectItem itemLabel="-- Seleccionar --" itemValue=""/>

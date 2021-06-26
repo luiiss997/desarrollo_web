@@ -13,14 +13,14 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{fotosComponentesController.selected != null}">
                         <p:outputLabel value="Subir Imagen: " for="imagen" />
-                        <p:fileUpload id="imagen" value="#{fotosComponentesController.file}" required="true" requiredMessage="El archivo es obligatorio" mode="simple" allowTypes="/(\.|\/)(png|jpg)$/1"/>                     
+                        <p:fileUpload id="imagen" value="#{fotosComponentesController.file}" required="true" requiredMessage="El archivo es obligatorio" mode="simple" allowTypes="/(\.|\/)(png|jpg|pdf)$/1"/>                     
                         <p:outputLabel value="#{bundle.CreateFotosComponentesLabel_idComponente}" for="idComponente" />
                         <p:selectOneMenu id="idComponente" value="#{fotosComponentesController.selected.idComponente}" >
                             <f:selectItems value="#{componentesController.itemsAvailableSelectOne}"
                                            var="idComponenteItem"
                                            itemValue="#{idComponenteItem}"/>
                         </p:selectOneMenu>
-                    </p:panelGrid>
+                    </p:panelGrid>                   
                     <p:inputText id="aux" value="#{fotosComponentesController.aux}" type="hidden" />
                     <p:commandButton actionListener="#{fotosComponentesController.agregarFoto()}" value="Subir Foto" ajax="false"
                                      update="display,:FotosComponentesListForm:datalist,:growl" oncomplete="handleSubmit(args,'EstadosCreateDialog');"/>

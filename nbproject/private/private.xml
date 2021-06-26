@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Z:/Luis/Documents/NetBeansProjects/desarrollo_web/web/views/acercade.xhtml</file>
-            <file>file:/Z:/Luis/Documents/NetBeansProjects/desarrollo_web/web/templeates/templeate_main.xhtml</file>
+            <file>file:/Z:/Luis/Documents/NetBeansProjects/desarrollo_web/web/fotosComponentes/Create.xhtml</file>
+            <file>file:/Z:/Luis/Documents/NetBeansProjects/desarrollo_web/web/fotosComponentes/List.xhtml</file>
+            <file>file:/Z:/Luis/Documents/NetBeansProjects/desarrollo_web/web/fotosComponentes/Edit.xhtml</file>
+            <file>file:/Z:/Luis/Documents/NetBeansProjects/desarrollo_web/src/java/control/FotosComponentesController.java</file>
         </group>
     </open-files>
 </project-private>
