@@ -13,7 +13,8 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{comprasController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateComprasLabel_fecha}" for="fecha" />
-                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{comprasController.selected.fecha}" title="#{bundle.EditComprasTitle_fecha}" required="true" requiredMessage="#{bundle.EditComprasRequiredMessage_fecha}" showOn="button"/>
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{comprasController.selected.fecha}" title="#{bundle.EditComprasTitle_fecha}" maxdate="#{comprasController.today}"
+                                    required="true" requiredMessage="#{bundle.EditComprasRequiredMessage_fecha}" showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateComprasLabel_subtotal}" for="subtotal" />
                         <p:inputText id="subtotal" value="#{comprasController.selected.subtotal}" title="#{bundle.CreateComprasTitle_subtotal}" required="true" requiredMessage="#{bundle.CreateComprasRequiredMessage_subtotal}"/>
                         <p:outputLabel value="#{bundle.CreateComprasLabel_iva}" for="iva" />

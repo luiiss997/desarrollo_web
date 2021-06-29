@@ -38,14 +38,33 @@
                         <p:inputText id="socket" value="#{componentesController.selected.socket}" title="#{bundle.EditComponentesTitle_socket}" />
                         <p:outputLabel value="#{bundle.EditComponentesLabel_VRam}" for="VRam" />
                         <p:inputText id="VRam" value="#{componentesController.selected.VRam}" title="#{bundle.EditComponentesTitle_VRam}" />
-                        <p:outputLabel value="#{bundle.EditComponentesLabel_existencia}" for="existencia" />
-                        <p:inputText id="existencia" value="#{componentesController.selected.existencia}" title="#{bundle.EditComponentesTitle_existencia}" required="true" requiredMessage="#{bundle.EditComponentesRequiredMessage_existencia}"/>
-                        <p:outputLabel value="#{bundle.EditComponentesLabel_precioCompra}" for="precioCompra" />
-                        <p:inputText id="precioCompra" value="#{componentesController.selected.precioCompra}" title="#{bundle.EditComponentesTitle_precioCompra}" required="true" requiredMessage="#{bundle.EditComponentesRequiredMessage_precioCompra}"/>
-                        <p:outputLabel value="#{bundle.EditComponentesLabel_precioVenta}" for="precioVenta" />
-                        <p:inputText id="precioVenta" value="#{componentesController.selected.precioVenta}" title="#{bundle.EditComponentesTitle_precioVenta}" required="true" requiredMessage="#{bundle.EditComponentesRequiredMessage_precioVenta}"/>
-                        <p:outputLabel value="#{bundle.EditComponentesLabel_stock}" for="stock" />
-                        <p:inputText id="stock" value="#{componentesController.selected.stock}" title="#{bundle.EditComponentesTitle_stock}" required="true" requiredMessage="#{bundle.EditComponentesRequiredMessage_stock}"/>
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_precioCompra}" for="precioCompra" />
+                        <p:inputText id="precioCompra" value="#{componentesController.selected.precioCompra}" title="#{bundle.CreateComponentesTitle_precioCompra}"
+                                     required="true" requiredMessage="#{bundle.CreateComponentesRequiredMessage_precioCompra}">
+                            <p:ajax event="change" update="precioVenta"/>
+                        </p:inputText>
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_precioVenta}" for="precioVenta" />
+                        <p:inputText id="precioVenta" value="#{componentesController.selected.precioVenta}" title="#{bundle.CreateComponentesTitle_precioVenta}" 
+                                     required="true" requiredMessage="#{bundle.CreateComponentesRequiredMessage_precioVenta}">
+                            <p:ajax 
+                                event="blur"
+                                update="out"
+                                listener="#{componentesController.validarPrecios(event)}"
+                                />
+                        </p:inputText>
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_existencia}" for="existencia"/>
+                        <p:inputText id="existencia" value="#{componentesController.selected.existencia}" title="#{bundle.CreateComponentesTitle_existencia}" 
+                                     required="true" requiredMessage="#{bundle.CreateComponentesRequiredMessage_existencia}">
+                        <p:ajax event="change" update="stock"/></p:inputText>                        
+                        <p:outputLabel value="#{bundle.CreateComponentesLabel_stock}" for="stock" />
+                        <p:inputText id="stock" value="#{componentesController.selected.stock}" title="#{bundle.CreateComponentesTitle_stock}" 
+                                     required="true" requiredMessage="#{bundle.CreateComponentesRequiredMessage_stock}">
+                         <p:ajax 
+                                event="blur"
+                                update="out"
+                                listener="#{componentesController.validarExistencias(event)}"
+                                />
+                        </p:inputText>
                         <p:outputLabel value="#{bundle.EditComponentesLabel_status}" for="status" />
                         <p:selectOneMenu id="status" value="#{componentesController.selected.status}" required="true" requiredMessage="#{bundle.EditComponentesRequiredMessage_status}">
                             <f:selectItem itemLabel="-- Seleccionar --" itemValue=""/>
@@ -84,6 +103,7 @@
                     </p:panelGrid>
                     <p:commandButton actionListener="#{componentesController.update}" value="#{bundle.Save}" update="display,:ComponentesListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ComponentesEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ComponentesEditDialog.hide()"/>
+                    <h:outputText id="out" value="#{componentesController.mensaje}"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

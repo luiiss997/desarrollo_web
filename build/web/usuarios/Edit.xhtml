@@ -22,8 +22,8 @@
                         <p:inputText id="apMat" value="#{usuariosController.selected.apMat}" title="#{bundle.EditUsuariosTitle_apMat}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_apMat}"/>
                         <p:outputLabel value="#{bundle.EditUsuariosLabel_email}" for="email" />
                         <p:inputText id="email" value="#{usuariosController.selected.email}" title="#{bundle.EditUsuariosTitle_email}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_email}">
-                        <p:ajax 
-                                event="keyup"
+                            <p:ajax 
+                                event="blur"
                                 update="out"
                                 listener="#{usuariosController.verificaremail2(event)}"
                                 />   
@@ -44,9 +44,10 @@
                                            itemValue="#{idTipoUsuItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{usuariosController.update}" value="#{bundle.Save}" update="display,:UsuariosListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsuariosEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="UsuariosEditDialog.hide()"/>
                     <h:outputText id="out" class="out_mensage" value="#{usuariosController.mensaje}"/>
+                    <br/>
+                    <p:commandButton actionListener="#{usuariosController.update}" value="#{bundle.Save}" update="display,:UsuariosListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsuariosEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UsuariosEditDialog.hide()"/>                  
                 </h:panelGroup>
             </h:form>
         </p:dialog>

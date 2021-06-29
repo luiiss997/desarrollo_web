@@ -13,10 +13,12 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.AjaxBehaviorEvent;
 
 @Named("detalleCompraController")
 @SessionScoped
@@ -27,13 +29,15 @@ public class DetalleCompraController implements Serializable {
     private List<DetalleCompra> items = null;
     private List<DetalleCompra> items2 = null;
     private DetalleCompra selected;
+    private String mensaje = "";
+    private boolean bnd=false;
 
     public DetalleCompraController() {
     }
 
     public List<DetalleCompra> getItems2() {
         if (items2 == null) {
-           // items = getFacade().findAll();
+            // items = getFacade().findAll();
             items2 = ejbFacade.listaEliminados();
         }
         return items2;
@@ -42,8 +46,10 @@ public class DetalleCompraController implements Serializable {
     public void setItems2(List<DetalleCompra> items2) {
         this.items2 = items2;
     }
-    
-    
+
+    public String getMensaje() {
+        return mensaje;
+    }
 
     public DetalleCompra getSelected() {
         return selected;
@@ -69,18 +75,26 @@ public class DetalleCompraController implements Serializable {
         return selected;
     }
 
-   public void create() {
-        selected.setStatus(1);
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("DetalleCompraCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+    public void create() {
+        if (bnd) {
+            selected.setStatus(1);
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("DetalleCompraCreated"));
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos Incorrectos, Intentelo de nuevo", null));
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("DetalleCompraUpdated"));
-        items = null;
-        items2 = null; 
+        if (bnd) {
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("DetalleCompraUpdated"));
+            items = null;
+            items2 = null;
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos Incorrectos, Intentelo de nuevo", null));
+        }
     }
 
     public void destroy() {
@@ -89,17 +103,17 @@ public class DetalleCompraController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
-            items2 = null; 
+            items2 = null;
         }
     }
-    
+
     public void restaurar() {
         selected.setStatus(1);
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("DetalleCompraUpdated"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
-            items2 = null; 
+            items2 = null;
         }
     }
 
@@ -188,7 +202,21 @@ public class DetalleCompraController implements Serializable {
                 return null;
             }
         }
+    }
 
+    public void validarPrecios(AjaxBehaviorEvent event) {
+        if (selected.getPrecioCompra() >= selected.getPrecioVenta()) {
+            bnd = false;
+            mensaje = "El precio de venta no puede ser mayor al precio de compra";
+        } else {
+            if (selected.getPrecioVenta() < 100) {
+                bnd = false;
+                mensaje = "El precio de venta es muy corto";
+            } else {
+                bnd = true;
+                mensaje = "";
+            }
+        }
     }
 
 }

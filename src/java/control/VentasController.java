@@ -5,6 +5,7 @@ import control.util.JsfUtil;
 import control.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -27,6 +28,7 @@ public class VentasController implements Serializable {
     private List<Ventas> items = null;
     private List<Ventas> items2 = null;
     private Ventas selected;
+    private final Date today = new Date();
 
     public VentasController() {
     }
@@ -51,6 +53,10 @@ public class VentasController implements Serializable {
         this.selected = selected;
     }
 
+    public Date getToday() {
+        return today;
+    }
+       
     protected void setEmbeddableKeys() {
     }
 

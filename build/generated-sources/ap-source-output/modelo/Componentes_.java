@@ -11,7 +11,7 @@ import modelo.FotosComponentes;
 import modelo.Marca;
 import modelo.Modelo;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2021-06-25T19:05:54")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2021-06-28T21:00:51")
 @StaticMetamodel(Componentes.class)
 public class Componentes_ { 
 

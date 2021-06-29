@@ -23,7 +23,14 @@
                         <p:outputLabel value="#{bundle.EditProveedoresLabel_direccion}" for="direccion" />
                         <p:inputText id="direccion" value="#{proveedoresController.selected.direccion}" title="#{bundle.EditProveedoresTitle_direccion}" required="true" requiredMessage="#{bundle.EditProveedoresRequiredMessage_direccion}"/>
                         <p:outputLabel value="#{bundle.EditProveedoresLabel_email}" for="email" />
-                        <p:inputText id="email" value="#{proveedoresController.selected.email}" title="#{bundle.EditProveedoresTitle_email}" required="true" requiredMessage="#{bundle.EditProveedoresRequiredMessage_email}"/>
+                        <p:inputText id="email" value="#{proveedoresController.selected.email}" title="#{bundle.EditProveedoresTitle_email}" 
+                                     required="true" requiredMessage="#{bundle.EditProveedoresRequiredMessage_email}">
+                            <p:ajax 
+                                event="blur"
+                                update="out"
+                                listener="#{proveedoresController.verificarCorreo(event)}"
+                                />
+                        </p:inputText>
                         <p:outputLabel value="#{bundle.EditProveedoresLabel_contacto}" for="contacto" />
                         <p:inputText id="contacto" value="#{proveedoresController.selected.contacto}" title="#{bundle.EditProveedoresTitle_contacto}" required="true" requiredMessage="#{bundle.EditProveedoresRequiredMessage_contacto}"/>
                         <p:outputLabel value="#{bundle.EditProveedoresLabel_cp}" for="cp" />
@@ -38,12 +45,12 @@
                             <f:selectItem itemLabel="Activo" itemValue="1"/>
                             <f:selectItem itemLabel="Eliminado" itemValue="0"/>
                         </p:selectOneMenu>
-                       <p:outputLabel value="Pais: " for="idPais" />
+                        <p:outputLabel value="Pais: " for="idPais" />
                         <p:selectOneMenu id="idPais" value="#{proveedoresController.pais}" required="true" requiredMessage="#{bundle.EditProveedoresRequiredMessage_idMunicipio}">
                             <f:selectItems value="#{paisesController.itemsAvailableSelectOne}"
                                            var="idPaisItem"
                                            itemValue="#{idPaisItem}"/>
-                             <p:ajax 
+                            <p:ajax 
                                 event="change"
                                 update="idEstado, idMunicipio"
                                 listener="#{proveedoresController.obtenerEstados(event)}"
@@ -67,6 +74,8 @@
                                            itemValue="#{idMunicipioItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
+                    <h:outputText id="out" class="out_mensage" value="#{proveedoresController.mensaje}"/>
+                    <br/>
                     <p:commandButton actionListener="#{proveedoresController.update}" value="#{bundle.Save}" update="display,:ProveedoresListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProveedoresEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ProveedoresEditDialog.hide()"/>
                 </h:panelGroup>

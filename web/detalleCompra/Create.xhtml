@@ -15,9 +15,19 @@
                         <p:outputLabel value="#{bundle.CreateDetalleCompraLabel_cantidad}" for="cantidad" />
                         <p:inputText id="cantidad" value="#{detalleCompraController.selected.cantidad}" title="#{bundle.CreateDetalleCompraTitle_cantidad}" required="true" requiredMessage="#{bundle.CreateDetalleCompraRequiredMessage_cantidad}"/>
                         <p:outputLabel value="#{bundle.CreateDetalleCompraLabel_precioCompra}" for="precioCompra" />
-                        <p:inputText id="precioCompra" value="#{detalleCompraController.selected.precioCompra}" title="#{bundle.CreateDetalleCompraTitle_precioCompra}" required="true" requiredMessage="#{bundle.CreateDetalleCompraRequiredMessage_precioCompra}"/>
+                        <p:inputText id="precioCompra" value="#{detalleCompraController.selected.precioCompra}" title="#{bundle.CreateDetalleCompraTitle_precioCompra}" 
+                                     required="true" requiredMessage="#{bundle.CreateDetalleCompraRequiredMessage_precioCompra}">
+                        <p:ajax event="change" update="precioVenta"/>
+                        </p:inputText>
                         <p:outputLabel value="#{bundle.CreateDetalleCompraLabel_precioVenta}" for="precioVenta" />
-                        <p:inputText id="precioVenta" value="#{detalleCompraController.selected.precioVenta}" title="#{bundle.CreateDetalleCompraTitle_precioVenta}" required="true" requiredMessage="#{bundle.CreateDetalleCompraRequiredMessage_precioVenta}"/>
+                        <p:inputText id="precioVenta" value="#{detalleCompraController.selected.precioVenta}" title="#{bundle.CreateDetalleCompraTitle_precioVenta}" 
+                                     required="true" requiredMessage="#{bundle.CreateDetalleCompraRequiredMessage_precioVenta}">
+                         <p:ajax 
+                                event="blur"
+                                update="out"
+                                listener="#{detalleCompraController.validarPrecios(event)}"
+                                />
+                        </p:inputText>
                         <p:outputLabel value="#{bundle.CreateDetalleCompraLabel_idCompra}" for="idCompra" />
                         <p:selectOneMenu id="idCompra" value="#{detalleCompraController.selected.idCompra}" >
                             <f:selectItems value="#{comprasController.itemsAvailableSelectOne}"
@@ -31,6 +41,8 @@
                                            itemValue="#{idComponenteItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
+                    <h:outputText id="out" class="out_mensage" value="#{detalleCompraController.mensaje}"/>
+                    <br/>
                     <p:commandButton actionListener="#{detalleCompraController.create}" value="#{bundle.Save}" update="display,:DetalleCompraListForm:datalist,:growl" oncomplete="handleSubmit(args,'DetalleCompraCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="DetalleCompraCreateDialog.hide()"/>
                 </h:panelGroup>

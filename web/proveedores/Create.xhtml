@@ -21,7 +21,14 @@
                         <p:outputLabel value="#{bundle.CreateProveedoresLabel_direccion}" for="direccion" />
                         <p:inputText id="direccion" value="#{proveedoresController.selected.direccion}" title="#{bundle.CreateProveedoresTitle_direccion}" required="true" requiredMessage="#{bundle.CreateProveedoresRequiredMessage_direccion}"/>
                         <p:outputLabel value="#{bundle.CreateProveedoresLabel_email}" for="email" />
-                        <p:inputText id="email" value="#{proveedoresController.selected.email}" title="#{bundle.CreateProveedoresTitle_email}" required="true" requiredMessage="#{bundle.CreateProveedoresRequiredMessage_email}"/>
+                        <p:inputText id="email" value="#{proveedoresController.selected.email}" title="#{bundle.CreateProveedoresTitle_email}" 
+                                     required="true" requiredMessage="#{bundle.CreateProveedoresRequiredMessage_email}">
+                            <p:ajax 
+                                event="blur"
+                                update="out"
+                                listener="#{proveedoresController.verificarCorreo(event)}"
+                                />
+                        </p:inputText>
                         <p:outputLabel value="#{bundle.CreateProveedoresLabel_contacto}" for="contacto" />
                         <p:inputText id="contacto" value="#{proveedoresController.selected.contacto}" title="#{bundle.CreateProveedoresTitle_contacto}" required="true" requiredMessage="#{bundle.CreateProveedoresRequiredMessage_contacto}"/>
                         <p:outputLabel value="#{bundle.CreateProveedoresLabel_cp}" for="cp" />
@@ -35,7 +42,7 @@
                             <f:selectItems value="#{paisesController.itemsAvailableSelectOne}"
                                            var="idPaisItem"
                                            itemValue="#{idPaisItem}"/>
-                             <p:ajax 
+                            <p:ajax 
                                 event="change"
                                 update="idEstado, idMunicipio"
                                 listener="#{proveedoresController.obtenerEstados(event)}"
@@ -59,6 +66,8 @@
                                            itemValue="#{idMunicipioItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
+                    <h:outputText id="out" class="out_mensage" value="#{proveedoresController.mensaje}"/>
+                    <br/>
                     <p:commandButton actionListener="#{proveedoresController.create}" value="#{bundle.Save}" update="display,:ProveedoresListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProveedoresCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ProveedoresCreateDialog.hide()"/>
                 </h:panelGroup>

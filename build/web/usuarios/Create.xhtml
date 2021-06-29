@@ -21,12 +21,11 @@
                         <p:outputLabel value="#{bundle.CreateUsuariosLabel_email}" for="email" />
                         <p:inputText id="email" value="#{usuariosController.selected.email}" title="#{bundle.CreateUsuariosTitle_email}" required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_email}" >
                          <p:ajax 
-                                event="keyup"
+                                event="blur"
                                 update="out"
-                                listener="#{usuariosController.verificaremail(event)}"
+                                listener="#{usuariosController.verificarEmail(event)}"
                                 />                    
-                        </p:inputText>
-                        
+                        </p:inputText>                       
                         <p:outputLabel value="#{bundle.CreateUsuariosLabel_password}" for="password" />
                         <p:inputText id="password" value="#{usuariosController.selected.password}" title="#{bundle.CreateUsuariosTitle_password}" required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_password}"/>
                         <p:outputLabel value="#{bundle.CreateUsuariosLabel_idTipoUsu}" for="idTipoUsu" />

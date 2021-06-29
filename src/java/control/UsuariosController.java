@@ -200,7 +200,7 @@ public class UsuariosController implements Serializable {
     }
 
     public void update() {     
-        if (veryfyEmail(selected.getEmail())) {
+        if (bnd) {
             String pwe = DigestUtils.sha1Hex(selected.getPassword());
             selected.setPassword(pwe);
 
@@ -208,7 +208,7 @@ public class UsuariosController implements Serializable {
             items = null;
             items2 = null;
         } else {
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El correo no es valido", null));
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje, null));
         }       
     }
     
@@ -328,7 +328,6 @@ public class UsuariosController implements Serializable {
             }
         }
     }
-    
     
     public boolean veryfyEmail(String correo){
         Pattern pattern = Pattern

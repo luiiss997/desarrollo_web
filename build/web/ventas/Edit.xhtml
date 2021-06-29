@@ -15,7 +15,8 @@
                         <p:outputLabel value="#{bundle.EditVentasLabel_id}" for="id" />
                         <p:inputText disabled="true" id="id" value="#{ventasController.selected.id}" title="#{bundle.EditVentasTitle_id}" required="true" requiredMessage="#{bundle.EditVentasRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.EditVentasLabel_fecha}" for="fecha" />
-                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{ventasController.selected.fecha}" title="#{bundle.EditVentasTitle_fecha}" required="true" requiredMessage="#{bundle.EditVentasRequiredMessage_fecha}" showOn="button"/>
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{ventasController.selected.fecha}" title="#{bundle.EditVentasTitle_fecha}" maxdate="#{ventasController.today}"
+                                    required="true" requiredMessage="#{bundle.EditVentasRequiredMessage_fecha}" showOn="button"/>
                         <p:outputLabel value="#{bundle.EditVentasLabel_subtotal}" for="subtotal" />
                         <p:inputText id="subtotal" value="#{ventasController.selected.subtotal}" title="#{bundle.EditVentasTitle_subtotal}" required="true" requiredMessage="#{bundle.EditVentasRequiredMessage_subtotal}"/>
                         <p:outputLabel value="#{bundle.EditVentasLabel_iva}" for="iva" />

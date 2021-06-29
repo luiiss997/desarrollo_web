@@ -13,6 +13,7 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -30,20 +31,22 @@ public class ComponentesController implements Serializable {
     private List<Componentes> items = null;
     private List<Componentes> items2 = null;
     private Componentes selected;
-    
+    private boolean bnd = false, bnd2 = false;
+    private String mensaje = "";
+
     @EJB
     private control.MarcaFacade ejbMarca;
     @EJB
     private control.ModeloFacade ejbModelo;
     private List<Marca> listMarcas;
     private List<Modelo> listModelos;
-    
+
     public ComponentesController() {
     }
 
     public List<Componentes> getItems2() {
         if (items2 == null) {
-           // items = getFacade().findAll();
+            // items = getFacade().findAll();
             items2 = ejbFacade.listaEliminados();
         }
         return items2;
@@ -52,7 +55,7 @@ public class ComponentesController implements Serializable {
     public void setItems2(List<Componentes> items2) {
         this.items2 = items2;
     }
-    
+
     public Componentes getSelected() {
         return selected;
     }
@@ -65,6 +68,10 @@ public class ComponentesController implements Serializable {
     }
 
     protected void initializeEmbeddableKey() {
+    }
+
+    public String getMensaje() {
+        return mensaje;
     }
 
     private ComponentesFacade getFacade() {
@@ -102,7 +109,7 @@ public class ComponentesController implements Serializable {
     public void setListModelos(List<Modelo> listModelos) {
         this.listModelos = listModelos;
     }
-    
+
     public Componentes prepareCreate() {
         selected = new Componentes();
         initializeEmbeddableKey();
@@ -110,17 +117,25 @@ public class ComponentesController implements Serializable {
     }
 
     public void create() {
-        selected.setStatus(1);
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ComponentesCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+        if (bnd && bnd2) {
+            selected.setStatus(1);
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ComponentesCreated"));
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos Incorrectos, Intentelo de nuevo", null));
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ComponentesUpdated"));
-        items = null;
-        items2 = null; 
+        if (bnd && bnd2) {
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ComponentesUpdated"));
+            items = null;
+            items2 = null;
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos Incorrectos, Intentelo de nuevo", null));
+        }
     }
 
     public void destroy() {
@@ -129,17 +144,17 @@ public class ComponentesController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
-            items2 = null; 
+            items2 = null;
         }
     }
-    
+
     public void restaurar() {
         selected.setStatus(1);
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ComponentesUpdated"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
-            items2 = null; 
+            items2 = null;
         }
     }
 
@@ -230,16 +245,41 @@ public class ComponentesController implements Serializable {
         }
 
     }
-    
-    public void obtenerMarcas(AjaxBehaviorEvent event){
-        System.out.println("id categoria = "+selected.getIdCategoria().getId());
-        listMarcas=ejbMarca.busquedaCategorias(selected.getIdCategoria().getId()); 
-        listModelos=ejbModelo.busquedaMarcas(1, selected.getIdCategoria().getId());
+
+    public void obtenerMarcas(AjaxBehaviorEvent event) {
+        System.out.println("id categoria = " + selected.getIdCategoria().getId());
+        listMarcas = ejbMarca.busquedaCategorias(selected.getIdCategoria().getId());
+        listModelos = ejbModelo.busquedaMarcas(1, selected.getIdCategoria().getId());
     }
-    
-     public void obtenerModelos(AjaxBehaviorEvent event){
-        System.out.println("id marca = "+selected.getIdMarca().getId());
-        listModelos=ejbModelo.busquedaMarcas(selected.getIdMarca().getId(), selected.getIdCategoria().getId());
+
+    public void obtenerModelos(AjaxBehaviorEvent event) {
+        System.out.println("id marca = " + selected.getIdMarca().getId());
+        listModelos = ejbModelo.busquedaMarcas(selected.getIdMarca().getId(), selected.getIdCategoria().getId());
+    }
+
+    public void validarPrecios(AjaxBehaviorEvent event) {
+        if (selected.getPrecioCompra() >= selected.getPrecioVenta()) {
+            bnd = false;
+            mensaje = "El precio de venta no puede ser mayor al precio de compra";
+        } else {
+            if (selected.getPrecioVenta() < 100) {
+                bnd = false;
+                mensaje = "El precio de venta es muy corto";
+            } else {
+                bnd = true;
+                mensaje = "";
+            }
+        }
+    }
+
+    public void validarExistencias(AjaxBehaviorEvent event) {
+        if (selected.getExistencia() >= selected.getStock()) {
+            bnd2 = false;
+            mensaje = "La existencia no puede ser mayor que el stock";
+        } else {
+            bnd2 = true;
+            mensaje = "";
+        }
     }
 
 }

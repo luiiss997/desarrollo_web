@@ -14,12 +14,29 @@
                     <p:panelGrid columns="2" rendered="#{detalleVentaController.selected != null}">
                         <p:outputLabel value="#{bundle.EditDetalleVentaLabel_id}" for="id" />
                         <p:inputText disabled="true" id="id" value="#{detalleVentaController.selected.id}" title="#{bundle.EditDetalleVentaTitle_id}" required="true" requiredMessage="#{bundle.EditDetalleVentaRequiredMessage_id}"/>
-                        <p:outputLabel value="#{bundle.EditDetalleVentaLabel_cantidad}" for="cantidad" />
-                        <p:inputText id="cantidad" value="#{detalleVentaController.selected.cantidad}" title="#{bundle.EditDetalleVentaTitle_cantidad}" required="true" requiredMessage="#{bundle.EditDetalleVentaRequiredMessage_cantidad}"/>
-                        <p:outputLabel value="#{bundle.EditDetalleVentaLabel_precioCompra}" for="precioCompra" />
-                        <p:inputText id="precioCompra" value="#{detalleVentaController.selected.precioCompra}" title="#{bundle.EditDetalleVentaTitle_precioCompra}" required="true" requiredMessage="#{bundle.EditDetalleVentaRequiredMessage_precioCompra}"/>
-                        <p:outputLabel value="#{bundle.EditDetalleVentaLabel_precioVenta}" for="precioVenta" />
-                        <p:inputText id="precioVenta" value="#{detalleVentaController.selected.precioVenta}" title="#{bundle.EditDetalleVentaTitle_precioVenta}" required="true" requiredMessage="#{bundle.EditDetalleVentaRequiredMessage_precioVenta}"/>
+                        <p:outputLabel value="#{bundle.CreateDetalleVentaLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{detalleVentaController.selected.cantidad}" title="#{bundle.CreateDetalleVentaTitle_cantidad}" 
+                                     required="true" requiredMessage="#{bundle.CreateDetalleVentaRequiredMessage_cantidad}">
+                            <p:ajax 
+                                event="blur"
+                                update="out"
+                                listener="#{detalleVentaController.validarCantidad(event)}"
+                                />
+                        </p:inputText>
+                        <p:outputLabel value="#{bundle.CreateDetalleVentaLabel_precioCompra}" for="precioCompra" />
+                        <p:inputText id="precioCompra" value="#{detalleVentaController.selected.precioCompra}" title="#{bundle.CreateDetalleVentaTitle_precioCompra}" 
+                                     required="true" requiredMessage="#{bundle.CreateDetalleVentaRequiredMessage_precioCompra}">
+                            <p:ajax event="change" update="precioVenta"/>
+                        </p:inputText>
+                        <p:outputLabel value="#{bundle.CreateDetalleVentaLabel_precioVenta}" for="precioVenta" />
+                        <p:inputText id="precioVenta" value="#{detalleVentaController.selected.precioVenta}" title="#{bundle.CreateDetalleVentaTitle_precioVenta}" 
+                                     required="true" requiredMessage="#{bundle.CreateDetalleVentaRequiredMessage_precioVenta}">
+                            <p:ajax 
+                                event="blur"
+                                update="out"
+                                listener="#{detalleVentaController.validarPrecios(event)}"
+                                />
+                        </p:inputText>
                         <p:outputLabel value="#{bundle.EditDetalleVentaLabel_status}" for="status" />
                         <p:selectOneMenu id="status" value="#{detalleVentaController.selected.status}" required="true" requiredMessage="#{bundle.EditDetalleVentaRequiredMessage_status}">
                             <f:selectItem itemLabel="-- Seleccionar --" itemValue=""/>
@@ -41,6 +58,8 @@
                                            itemValue="#{idComponenteItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
+                    <h:outputText id="out" class="out_mensage" value="#{detalleCompraController.mensaje}"/>
+                    <br/>
                     <p:commandButton actionListener="#{detalleVentaController.update}" value="#{bundle.Save}" update="display,:DetalleVentaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DetalleVentaEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="DetalleVentaEditDialog.hide()"/>
                 </h:panelGroup>

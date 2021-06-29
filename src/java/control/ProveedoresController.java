@@ -9,10 +9,13 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -31,25 +34,32 @@ public class ProveedoresController implements Serializable {
     private List<Proveedores> items = null;
     private List<Proveedores> items2 = null;
     private Proveedores selected;
-    
+
     @EJB
     private control.EstadosFacade ejbEstados;
     @EJB
     private control.MunicipiosFacade ejbFacadeMunicipios;
-       
+
     private Paises pais;
     private List<Estados> listaEstados;
     private List<Municipios> listaMunicipios;
-    
+
+    private String mensaje = "";
+    private boolean bnd = false;
+
     public ProveedoresController() {
     }
-    
+
     public List<Proveedores> getItems2() {
         if (items2 == null) {
-           // items = getFacade().findAll();
+            // items = getFacade().findAll();
             items2 = ejbFacade.listaEliminados();
         }
         return items2;
+    }
+
+    public String getMensaje() {
+        return mensaje;
     }
 
     public void setItems2(List<Proveedores> items2) {
@@ -87,7 +97,7 @@ public class ProveedoresController implements Serializable {
     public void setListaMunicipios(List<Municipios> listaMunicipios) {
         this.listaMunicipios = listaMunicipios;
     }
-    
+
     protected void setEmbeddableKeys() {
     }
 
@@ -105,17 +115,27 @@ public class ProveedoresController implements Serializable {
     }
 
     public void create() {
-        selected.setStatus(1);
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ProveedoresCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+        if (bnd) {
+            selected.setStatus(1);
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ProveedoresCreated"));
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
+            mensaje = "";
+        }else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje, null));
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ProveedoresUpdated"));
-        items = null;
-        items2 = null; 
+        if (bnd) {
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ProveedoresUpdated"));
+            items = null;
+            items2 = null;
+            mensaje="";
+        }else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje, null));
+        }
     }
 
     public void destroy() {
@@ -124,17 +144,17 @@ public class ProveedoresController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
-            items2 = null; 
+            items2 = null;
         }
     }
-    
+
     public void restaurar() {
         selected.setStatus(1);
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ProveedoresUpdated"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
-            items2 = null; 
+            items2 = null;
         }
     }
 
@@ -223,19 +243,31 @@ public class ProveedoresController implements Serializable {
                 return null;
             }
         }
-
     }
-    
-    
-    public void obtenerEstados(AjaxBehaviorEvent event){
-        System.out.println("id pais="+pais.getId());
+
+    public void obtenerEstados(AjaxBehaviorEvent event) {
+        System.out.println("id pais=" + pais.getId());
         listaEstados = ejbEstados.busquedaPais(pais.getId());
         listaMunicipios = null;
     }
-    
-    public void obtenerMunicipios(AjaxBehaviorEvent event){
-        System.out.println("id estado = "+selected.getIdEstado().getId());
-        listaMunicipios=ejbFacadeMunicipios.busquedaEstado(selected.getIdEstado().getId());
+
+    public void obtenerMunicipios(AjaxBehaviorEvent event) {
+        System.out.println("id estado = " + selected.getIdEstado().getId());
+        listaMunicipios = ejbFacadeMunicipios.busquedaEstado(selected.getIdEstado().getId());
+    }
+
+    public void verificarCorreo(AjaxBehaviorEvent event) {
+        Pattern pattern = Pattern
+                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Matcher mather = pattern.matcher(selected.getEmail());
+        if (mather.find()) {
+            mensaje = "";
+            bnd = true;
+        } else {
+            mensaje = "El correo ingresado no es válido";
+            bnd = false;
+        }
     }
 
 }
