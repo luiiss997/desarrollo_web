@@ -14,10 +14,12 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.AjaxBehaviorEvent;
 
 @Named("ventasController")
 @SessionScoped
@@ -29,13 +31,15 @@ public class VentasController implements Serializable {
     private List<Ventas> items2 = null;
     private Ventas selected;
     private final Date today = new Date();
+    private String mensaje = "";
+    private boolean bnd;
 
     public VentasController() {
     }
 
     public List<Ventas> getItems2() {
         if (items2 == null) {
-           // items = getFacade().findAll();
+            // items = getFacade().findAll();
             items2 = ejbFacade.listaEliminados();
         }
         return items2;
@@ -44,7 +48,11 @@ public class VentasController implements Serializable {
     public void setItems2(List<Ventas> items2) {
         this.items2 = items2;
     }
-    
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
     public Ventas getSelected() {
         return selected;
     }
@@ -56,7 +64,7 @@ public class VentasController implements Serializable {
     public Date getToday() {
         return today;
     }
-       
+
     protected void setEmbeddableKeys() {
     }
 
@@ -74,17 +82,23 @@ public class VentasController implements Serializable {
     }
 
     public void create() {
-        selected.setStatus(1);
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("VentasCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+        if (bnd) {
+            selected.setStatus(1);
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("VentasCreated"));
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos Incorrectos, Intentelo de nuevo", null));
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("VentasUpdated"));
-        items = null;
-        items2 = null;
+        if (bnd) {
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("VentasUpdated"));
+            items = null;
+            items2 = null;
+        }
     }
 
     public void destroy() {
@@ -93,17 +107,17 @@ public class VentasController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
-            items2 = null; 
+            items2 = null;
         }
     }
-    
+
     public void restaurar() {
         selected.setStatus(1);
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("VentasUpdated"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
-            items2 = null; 
+            items2 = null;
         }
     }
 
@@ -193,6 +207,21 @@ public class VentasController implements Serializable {
             }
         }
 
+    }
+
+    public void validarVenta(AjaxBehaviorEvent event) {
+        if (selected.getSubtotal() >= 1 && selected.getTotal() >= 1) {
+            if (selected.getSubtotal() < selected.getTotal()) {
+                bnd = true;
+                mensaje = "";
+            } else {
+                bnd = false;
+                mensaje = "El subtotal no puede ser mayor o igual al total";
+            }
+        } else {
+            bnd = false;
+            mensaje = "Los precios no pueden ser menor o igual a 0";
+        }
     }
 
 }

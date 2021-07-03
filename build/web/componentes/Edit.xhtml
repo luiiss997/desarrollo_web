@@ -103,7 +103,7 @@
                     </p:panelGrid>
                     <p:commandButton actionListener="#{componentesController.update}" value="#{bundle.Save}" update="display,:ComponentesListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ComponentesEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ComponentesEditDialog.hide()"/>
-                    <h:outputText id="out" value="#{componentesController.mensaje}"/>
+                    <h:outputText id="out" class="out_mensage" value="#{componentesController.mensaje}"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

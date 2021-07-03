@@ -30,7 +30,8 @@ public class DetalleCompraController implements Serializable {
     private List<DetalleCompra> items2 = null;
     private DetalleCompra selected;
     private String mensaje = "";
-    private boolean bnd=false;
+    private boolean bnd = false;
+    private boolean bnd2 = false;
 
     public DetalleCompraController() {
     }
@@ -76,7 +77,7 @@ public class DetalleCompraController implements Serializable {
     }
 
     public void create() {
-        if (bnd) {
+        if (bnd && bnd2) {
             selected.setStatus(1);
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("DetalleCompraCreated"));
             if (!JsfUtil.isValidationFailed()) {
@@ -88,7 +89,7 @@ public class DetalleCompraController implements Serializable {
     }
 
     public void update() {
-        if (bnd) {
+        if (bnd&&bnd2) {
             persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("DetalleCompraUpdated"));
             items = null;
             items2 = null;
@@ -205,17 +206,32 @@ public class DetalleCompraController implements Serializable {
     }
 
     public void validarPrecios(AjaxBehaviorEvent event) {
-        if (selected.getPrecioCompra() >= selected.getPrecioVenta()) {
-            bnd = false;
-            mensaje = "El precio de venta no puede ser mayor al precio de compra";
+        if (selected.getPrecioCompra() >= 1 && selected.getPrecioVenta() >= 2) {
+                if (selected.getPrecioCompra() >= selected.getPrecioVenta()) {
+                    bnd = false;
+                    mensaje = "El precio de venta no puede ser mayor al precio de compra";
+                } else {
+                    if (selected.getPrecioVenta() < 100) {
+                        bnd = false;
+                        mensaje = "El precio de venta es muy corto";
+                    } else {
+                        bnd = true;
+                        mensaje = "";
+                    }
+                }        
+        }else{
+            bnd=false;
+            mensaje="Los precios no pueden ser 0 o menos";
+        }            
+    }
+
+    public void validarCantidad(AjaxBehaviorEvent event) {
+        if (selected.getCantidad() <= 0) {
+            bnd2 = false;
+            mensaje = "La cantidad minima debe ser 1";
         } else {
-            if (selected.getPrecioVenta() < 100) {
-                bnd = false;
-                mensaje = "El precio de venta es muy corto";
-            } else {
-                bnd = true;
-                mensaje = "";
-            }
+            bnd2 = true;
+            mensaje = "";
         }
     }
 

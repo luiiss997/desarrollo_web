@@ -58,7 +58,7 @@
                                            itemValue="#{idComponenteItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <h:outputText id="out" class="out_mensage" value="#{detalleCompraController.mensaje}"/>
+                    <h:outputText id="out" class="out_mensage" value="#{detalleVentaController.mensaje}"/>
                     <br/>
                     <p:commandButton actionListener="#{detalleVentaController.update}" value="#{bundle.Save}" update="display,:DetalleVentaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DetalleVentaEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="DetalleVentaEditDialog.hide()"/>

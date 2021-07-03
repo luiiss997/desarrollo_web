@@ -206,27 +206,37 @@ public class DetalleVentaController implements Serializable {
     }
 
     public void validarPrecios(AjaxBehaviorEvent event) {
-        if (selected.getPrecioCompra() >= selected.getPrecioVenta()) {
-            bnd = false;
-            mensaje = "El precio de venta no puede ser mayor al precio de compra";
-        } else {
-            if (selected.getPrecioVenta() < 100) {
+        if (selected.getPrecioCompra() >= 1 && selected.getPrecioVenta() >= 1) {
+            if (selected.getPrecioCompra() >= selected.getPrecioVenta()) {
                 bnd = false;
-                mensaje = "El precio de venta es muy corto";
+                mensaje = "El precio de venta no puede ser mayor al precio de compra";
             } else {
-                bnd = true;
-                mensaje = "";
+                if (selected.getPrecioVenta() < 100) {
+                    bnd = false;
+                    mensaje = "El precio de venta es muy corto";
+                } else {
+                    bnd = true;
+                    mensaje = "";
+                }
             }
+        } else {
+            bnd = false;
+            mensaje = "Los precios no pueden ser menores a 0";
         }
     }
 
     public void validarCantidad(AjaxBehaviorEvent event) {
-        if (selected.getCantidad()>= 20) {
-            bnd2 = false;
-            mensaje = "La cantidad de venta es excesiva";
+        if (selected.getCantidad() >= 1) {
+            if (selected.getCantidad() >= 50) {
+                bnd2 = false;
+                mensaje = "La cantidad de venta es excesiva";
+            } else {
+                bnd2 = true;
+                mensaje = "";
+            }
         } else {
-            bnd2 = true;
-            mensaje = "";
+            bnd2 = false;
+            mensaje = "La cantidad no puede ser menor a 0";
         }
     }
 

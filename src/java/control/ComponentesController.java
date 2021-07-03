@@ -258,27 +258,32 @@ public class ComponentesController implements Serializable {
     }
 
     public void validarPrecios(AjaxBehaviorEvent event) {
-        if (selected.getPrecioCompra() >= selected.getPrecioVenta()) {
-            bnd = false;
-            mensaje = "El precio de venta no puede ser mayor al precio de compra";
-        } else {
-            if (selected.getPrecioVenta() < 100) {
+        if (selected.getPrecioCompra() >= 1 && selected.getPrecioVenta() >= 1) {
+            if (selected.getPrecioCompra() >= selected.getPrecioVenta()) {
                 bnd = false;
-                mensaje = "El precio de venta es muy corto";
+                mensaje = "El precio de compra no puede ser mayor al precio de venta";
             } else {
                 bnd = true;
                 mensaje = "";
             }
+        } else {
+            bnd = false;
+            mensaje = "Los precios no puedes ser menores a 0";
         }
     }
 
     public void validarExistencias(AjaxBehaviorEvent event) {
-        if (selected.getExistencia() >= selected.getStock()) {
-            bnd2 = false;
-            mensaje = "La existencia no puede ser mayor que el stock";
+        if (selected.getExistencia() >= 1) {
+            if (selected.getExistencia() >= selected.getStock()) {
+                bnd2 = false;
+                mensaje = "La existencia no puede ser mayor que el stock";
+            } else {
+                bnd2 = true;
+                mensaje = "";
+            }
         } else {
-            bnd2 = true;
-            mensaje = "";
+            bnd2 = false;
+            mensaje = "La existencia no puede ser menor a 1";
         }
     }
 
